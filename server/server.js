@@ -1,6 +1,7 @@
 const express = require('express')
 const initSubjectRoute = require('./src/routes/subjectRoute');
 const initMajorRoute = require('./src/routes/majorRoute');
+const initSemesterRoute = require('./src/routes/semesterRoute');
 
 //config
 const PORT = process.env.PORT || 1507
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 // initUserRoutes(app)
 initSubjectRoute(app)
 initMajorRoute(app)
+initSemesterRoute(app)
 
 app.listen(PORT, () => {
     console.log('app listen on port: ', PORT);

@@ -1,21 +1,21 @@
 const db = require('../models/index.js')
 
-const Major = db.Major
+let Semester = db.Semester
 
-const postCreateMajor = async (req, res) => {
+const postCreateSemester = async (req, res) => {
     try {
-        let { name, year } = req.body
-        if (!name || !year) {
+        let { semester } = req.body
+        if (!semester) {
             return res.status(200).json({
                 EC: 3,
                 EM: 'Please enter all necessary information',
                 DT: ''
             })
         }
-        await Major.create(req.body)
+        await Semester.create(req.body)
         return res.status(201).json({
             EC: 0,
-            EM: 'Create major successful',
+            EM: 'Create semester successful',
             DT: ''
         })
     } catch (error) {
@@ -28,12 +28,12 @@ const postCreateMajor = async (req, res) => {
     }
 }
 
-const getMajor = async (req, res) => {
+const getSemester = async (req, res) => {
     try {
-        let response = await Major.findAll({ attributes: ['id', 'name', 'year'] });
-        return res.status(201).json({
+        let response = await Semester.findAll({ attributes: ['id', 'semester'] });
+        return res.status(200).json({
             EC: 0,
-            EM: 'Get major successful',
+            EM: 'Get semester successful',
             DT: response
         })
     } catch (error) {
@@ -46,29 +46,29 @@ const getMajor = async (req, res) => {
     }
 }
 
-const putUpdateMajor = async (req, res) => {
+const putUpdateSemester = async (req, res) => {
     try {
-        let { id, name, year } = req.body
+        let { id, semester } = req.body
         if (!id) {
             return res.status(200).json({
                 EC: 3,
-                EM: 'Please enter id of major to update',
+                EM: 'Please enter id of semester to update',
                 DT: ''
             })
         }
 
-        let majorExisted = await Major.findOne({ where: { id } })
-        if (!majorExisted) {
+        let semesterExisted = await Semester.findOne({ where: { id } })
+        if (!semesterExisted) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'No majors found that need updating',
+                EM: 'No semester found that need updating',
                 DT: ''
             })
         }
-        await Major.update({ name, year }, { where: { id } })
+        await Semester.update({ semester }, { where: { id } })
         return res.status(200).json({
             EC: 0,
-            EM: 'Update major successful',
+            EM: 'Update semester successful',
             DT: ''
         })
 
@@ -83,30 +83,30 @@ const putUpdateMajor = async (req, res) => {
     }
 }
 
-const deleteMajor = async (req, res) => {
+const deleteSemester = async (req, res) => {
     try {
         let { id } = req.query
         if (!id) {
             return res.status(200).json({
                 EC: 3,
-                EM: 'Please enter id of major to delete',
+                EM: 'Please enter id of semester to delete',
                 DT: ''
             })
         }
 
-        let majorExisted = await Major.findOne({ where: { id } })
-        if (!majorExisted) {
+        let semesterExisted = await Semester.findOne({ where: { id } })
+        if (!semesterExisted) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'No majors found that need deleting',
+                EM: 'No semester found that need deleting',
                 DT: ''
             })
         }
 
-        await Major.destroy({ where: { id } })
+        await Semester.destroy({ where: { id } })
         return res.status(200).json({
             EC: 0,
-            EM: 'Delete major successful',
+            EM: 'Delete semester successful',
             DT: ''
         })
     } catch (error) {
@@ -119,4 +119,4 @@ const deleteMajor = async (req, res) => {
     }
 }
 
-module.exports = { postCreateMajor, getMajor, putUpdateMajor, deleteMajor }
+module.exports = { postCreateSemester, getSemester, putUpdateSemester, deleteSemester }

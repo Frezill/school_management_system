@@ -7,7 +7,7 @@ const postCreateSubject = async (req, res) => {
         let { name, tuition, number_of_credits, description } = req.body
         if (!name || !tuition || !number_of_credits || !description) {
             return res.status(200).json({
-                EC: 1,
+                EC: 3,
                 EM: 'Please enter all necessary information',
                 DT: ''
             })
@@ -53,7 +53,7 @@ const getSubjectById = async (req, res) => {
 
         if (!response) {
             return res.status(200).json({
-                EC: 0,
+                EC: 2,
                 EM: 'Not found subject',
                 DT: ''
             })
@@ -79,7 +79,7 @@ const putUpdateSubject = async (req, res) => {
         let { id, name, tuition, number_of_credits, description } = req.body
         if (!id) {
             return res.status(200).json({
-                EC: 1,
+                EC: 3,
                 EM: 'Please enter id of subject to update',
                 DT: ''
             })
@@ -115,7 +115,7 @@ const deleteSubject = async (req, res) => {
         let { id } = req.query
         if (!id) {
             return res.status(200).json({
-                EC: 1,
+                EC: 3,
                 EM: 'Please enter id of subject to delete',
                 DT: ''
             })
@@ -131,7 +131,7 @@ const deleteSubject = async (req, res) => {
         }
 
         await Subject.destroy({ where: { id } })
-        return res.status(201).json({
+        return res.status(200).json({
             EC: 0,
             EM: 'Delete subject successful',
             DT: ''
