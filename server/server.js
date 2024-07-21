@@ -3,6 +3,7 @@ const initSubjectRoute = require('./src/routes/subjectRoute');
 const initMajorRoute = require('./src/routes/majorRoute');
 const initSemesterRoute = require('./src/routes/semesterRoute');
 const initRoleRoute = require('./src/routes/roleRoute');
+const initUserRoutes = require('./src/routes/userRoute');
 
 //config
 const PORT = process.env.PORT || 1507
@@ -12,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //config routes
-// initUserRoutes(app)
+initUserRoutes(app)
 initSubjectRoute(app)
 initMajorRoute(app)
 initSemesterRoute(app)

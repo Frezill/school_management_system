@@ -34,12 +34,18 @@ module.exports = {
             role_id: {
                 type: Sequelize.INTEGER
             },
+            profileImage: {
+                type: Sequelize.STRING
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
             },
             updatedAt: {
                 allowNull: false,
+                type: Sequelize.DATE
+            },
+            deletedAt: {
                 type: Sequelize.DATE
             }
         });
