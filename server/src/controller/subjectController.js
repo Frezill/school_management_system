@@ -125,7 +125,7 @@ const deleteSubject = async (req, res) => {
         if (!subject) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'No subjects found that need updating',
+                EM: 'No subjects found that need deleting',
                 DT: ''
             })
         }

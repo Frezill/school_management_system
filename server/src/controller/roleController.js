@@ -1,21 +1,21 @@
 const db = require('../models/index.js')
 
-let Semester = db.Semester
+let Role = db.Role
 
-const postCreateSemester = async (req, res) => {
+const postCreateRole = async (req, res) => {
     try {
-        let { semester } = req.body
-        if (!semester) {
+        let { name, description } = req.body
+        if (!name || !description) {
             return res.status(200).json({
                 EC: 3,
                 EM: 'Please enter all necessary information',
                 DT: ''
             })
         }
-        await Semester.create(req.body)
+        await Role.create(req.body)
         return res.status(201).json({
             EC: 0,
-            EM: 'Create semester successful',
+            EM: 'Create role successful',
             DT: ''
         })
     } catch (error) {
@@ -28,12 +28,12 @@ const postCreateSemester = async (req, res) => {
     }
 }
 
-const getSemester = async (req, res) => {
+const getRole = async (req, res) => {
     try {
-        let response = await Semester.findAll({ attributes: ['id', 'semester'] });
+        let response = await Role.findAll({ attributes: ['id', 'name', 'description'] });
         return res.status(200).json({
             EC: 0,
-            EM: 'Get semester successful',
+            EM: 'Get role successful',
             DT: response
         })
     } catch (error) {
@@ -46,22 +46,22 @@ const getSemester = async (req, res) => {
     }
 }
 
-const getSemesterById = async (req, res) => {
+const getRoleById = async (req, res) => {
     try {
         let { id } = req.query
-        let response = await Semester.findOne({ where: { id }, attributes: ['id', 'semester'] });
+        let response = await Role.findOne({ where: { id }, attributes: ['id', 'name', 'description'] });
 
         if (!response) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'Not found semester',
+                EM: 'Not found role',
                 DT: ''
             })
         }
 
         return res.status(201).json({
             EC: 0,
-            EM: 'Get detail semester successful',
+            EM: 'Get detail role successful',
             DT: response
         })
     } catch (error) {
@@ -74,29 +74,29 @@ const getSemesterById = async (req, res) => {
     }
 }
 
-const putUpdateSemester = async (req, res) => {
+const putUpdateRole = async (req, res) => {
     try {
-        let { id, semester } = req.body
+        let { id, name, description } = req.body
         if (!id) {
             return res.status(200).json({
                 EC: 3,
-                EM: 'Please enter id of semester to update',
+                EM: 'Please enter id of role to update',
                 DT: ''
             })
         }
 
-        let semesterExisted = await Semester.findOne({ where: { id } })
-        if (!semesterExisted) {
+        let roleExisted = await Role.findOne({ where: { id } })
+        if (!roleExisted) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'No semester found that need updating',
+                EM: 'No role found that need updating',
                 DT: ''
             })
         }
-        await Semester.update({ semester }, { where: { id } })
+        await Role.update({ name, description }, { where: { id } })
         return res.status(200).json({
             EC: 0,
-            EM: 'Update semester successful',
+            EM: 'Update role successful',
             DT: ''
         })
 
@@ -111,30 +111,30 @@ const putUpdateSemester = async (req, res) => {
     }
 }
 
-const deleteSemester = async (req, res) => {
+const deleteRole = async (req, res) => {
     try {
         let { id } = req.query
         if (!id) {
             return res.status(200).json({
                 EC: 3,
-                EM: 'Please enter id of semester to delete',
+                EM: 'Please enter id of role to delete',
                 DT: ''
             })
         }
 
-        let semesterExisted = await Semester.findOne({ where: { id } })
-        if (!semesterExisted) {
+        let subject = await Role.findOne({ where: { id } })
+        if (!subject) {
             return res.status(200).json({
                 EC: 2,
-                EM: 'No semester found that need deleting',
+                EM: 'No role found that need deleting',
                 DT: ''
             })
         }
 
-        await Semester.destroy({ where: { id } })
+        await Role.destroy({ where: { id } })
         return res.status(200).json({
             EC: 0,
-            EM: 'Delete semester successful',
+            EM: 'Delete role successful',
             DT: ''
         })
     } catch (error) {
@@ -147,4 +147,4 @@ const deleteSemester = async (req, res) => {
     }
 }
 
-module.exports = { postCreateSemester, getSemester, getSemesterById, putUpdateSemester, deleteSemester }
+module.exports = { postCreateRole, getRole, getRoleById, putUpdateRole, deleteRole }
