@@ -16,7 +16,6 @@
   "version": "1.0.0",
   "main": "1507",
   "devDependencies": {},
-  "type": "commonjs",
   "scripts": {
     "start": "nodemon server.js"
   },

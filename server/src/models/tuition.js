@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     };
     Tuition.init({
 
-        student_id: DataTypes.INTEGER,
+        student_id: DataTypes.STRING,
         total_tuition: DataTypes.DECIMAL(15, 3),
         exemption: DataTypes.DECIMAL(1, 1),
         last_tuition: DataTypes.DECIMAL(15, 3),

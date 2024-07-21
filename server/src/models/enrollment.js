@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     };
     Enrollment.init({
 
-        student_id: DataTypes.INTEGER,
-        subject_id: DataTypes.INTEGER,
+        student_id: DataTypes.STRING,
+        subject_id: DataTypes.STRING,
         score: DataTypes.DECIMAL(1, 1),
         completed: { type: DataTypes.BOOLEAN, defaultValue: false },
         attendance: DataTypes.TEXT('long'),
