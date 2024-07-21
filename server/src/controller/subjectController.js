@@ -85,7 +85,7 @@ const putUpdateSubject = async (req, res) => {
             })
         }
 
-        let subject = Subject.findOne({ where: { id } })
+        let subject = await Subject.findOne({ where: { id } })
         if (!subject) {
             return res.status(200).json({
                 EC: 2,
@@ -121,7 +121,7 @@ const deleteSubject = async (req, res) => {
             })
         }
 
-        let subject = Subject.findOne({ where: { id } })
+        let subject = await Subject.findOne({ where: { id } })
         if (!subject) {
             return res.status(200).json({
                 EC: 2,
