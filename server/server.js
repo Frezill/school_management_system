@@ -1,4 +1,5 @@
 const express = require('express')
+require('dotenv').config()
 const initSubjectRoute = require('./src/routes/subjectRoute');
 const initMajorRoute = require('./src/routes/majorRoute');
 const initSemesterRoute = require('./src/routes/semesterRoute');
@@ -7,12 +8,14 @@ const initUserRoutes = require('./src/routes/userRoute');
 const initEnrollmentRoute = require('./src/routes/enrollmentRoute');
 const initTuitionRoute = require('./src/routes/tuitionRoute');
 const initPeriodRoute = require('./src/routes/periodRoute');
+const configCors = require('./src/config/cors');
 
 //config
 const PORT = process.env.PORT || 1507
 const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+configCors(app)
 
 
 //config routes

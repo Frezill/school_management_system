@@ -1,8 +1,8 @@
 const express = require('express')
 const multer = require('multer')
-const { registerNewUser } = require('../controller/login-registerController')
+const { registerNewUser, loginUser, logoutUser } = require('../controller/login-registerController')
 const { getUser, getUserById, updateUser, deleteUser } = require('../controller/userController')
-
+const { checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod } = require('../middleware/authentication.js')
 
 const router = express.Router()
 
@@ -20,11 +20,13 @@ const upload = multer({ storage })
 const initUserRoutes = (app) => {
 
     router.post('/register', upload.single('profileImage'), registerNewUser)
+    router.post('/login', loginUser)
+    router.post('/logout', checkUserJWT, logoutUser)
 
-    router.get('/user', getUser)
-    router.get('/detailUser', getUserById)
-    router.put('/user', upload.single('profileImage'), updateUser)
-    router.delete('/user', deleteUser)
+    router.get('/user', checkUserJWT, isTeacher, getUser)
+    router.get('/detailUser', checkUserJWT, getUserById)
+    router.put('/user', checkUserJWT, upload.single('profileImage'), updateUser)
+    router.delete('/user', checkUserJWT, isAdmin, deleteUser)
 
     return app.use('/api/v1', router);
 }
