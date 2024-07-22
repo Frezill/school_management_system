@@ -17,6 +17,15 @@ const postCreateEnrollment = async (req, res) => {
             })
         }
 
+        let enrollmentExisted = await Enrollment.findOne({ where: { user_id, subject_id, semester_id } })
+        if (enrollmentExisted) {
+            return res.status(200).json({
+                EC: 1,
+                EM: 'You already add this subject to learn list',
+                DT: ''
+            })
+        }
+
         await Enrollment.create(req.body)
         return res.status(201).json({
             EC: 0,
