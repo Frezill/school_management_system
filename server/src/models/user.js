@@ -14,8 +14,7 @@ module.exports = (sequelize, DataTypes) => {
             User.belongsTo(models.Role, { foreignKey: 'role_id' });
             User.belongsTo(models.Major, { foreignKey: 'major_id' });
             User.hasMany(models.Tuition, { foreignKey: 'student_id' });
-            User.belongsToMany(models.Subject, { through: models.Enrollment, foreignKey: 'student_id' });
-            User.belongsToMany(models.Semester, { through: models.Enrollment, foreignKey: 'student_id' });
+            User.hasMany(models.Enrollment, { foreignKey: 'user_id' })
         }
     };
     User.init({

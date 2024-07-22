@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         static associate(models) {
             // define association here
             Semester.hasMany(models.Tuition, { foreignKey: 'semester_id' });
-            Semester.belongsToMany(models.User, { through: models.Enrollment, foreignKey: 'semester_id' });
-            Semester.belongsToMany(models.Subject, { through: models.Enrollment, foreignKey: 'semester_id' });
+            Semester.hasMany(models.Enrollment, { foreignKey: 'semester_id' });
         }
     };
     Semester.init({

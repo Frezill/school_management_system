@@ -8,14 +8,14 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            student_id: {
+            user_id: {
                 type: Sequelize.STRING
             },
             subject_id: {
                 type: Sequelize.STRING
             },
             score: {
-                type: Sequelize.DECIMAL(1, 1)
+                type: Sequelize.FLOAT
             },
             completed: {
                 type: Sequelize.BOOLEAN

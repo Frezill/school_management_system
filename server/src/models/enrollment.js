@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            Enrollment.belongsTo(models.User, { foreignKey: 'user_id' });
+            Enrollment.belongsTo(models.Subject, { foreignKey: 'subject_id' });
+            Enrollment.belongsTo(models.Semester, { foreignKey: 'semester_id' });
         }
     };
     Enrollment.init({
 
-        student_id: DataTypes.STRING,
+        user_id: DataTypes.STRING,
         subject_id: DataTypes.STRING,
-        score: DataTypes.DECIMAL(1, 1),
+        score: DataTypes.FLOAT,
         completed: { type: DataTypes.BOOLEAN, defaultValue: false },
         attendance: DataTypes.TEXT('long'),
         semester_id: DataTypes.INTEGER

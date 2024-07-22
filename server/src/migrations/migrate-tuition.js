@@ -15,7 +15,7 @@ module.exports = {
                 type: Sequelize.DECIMAL(15, 3)
             },
             exemption: {
-                type: Sequelize.DECIMAL(1, 1)
+                type: Sequelize.FLOAT
             },
             last_tuition: {
                 type: Sequelize.DECIMAL(15, 3)

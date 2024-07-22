@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
         student_id: DataTypes.STRING,
         total_tuition: DataTypes.DECIMAL(15, 3),
-        exemption: DataTypes.DECIMAL(1, 1),
+        exemption: DataTypes.FLOAT,
         last_tuition: DataTypes.DECIMAL(15, 3),
         paid: { type: DataTypes.BOOLEAN, defaultValue: false },
         payment_date: DataTypes.DATE,
