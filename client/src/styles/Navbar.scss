@@ -1,0 +1,58 @@
+@import './breakpoint.scss';
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    height: 110px;
+    align-items: center;
+    background-color: #0a3d62;
+    padding: 3px 50px;
+
+    .navbar-left {
+        display: flex;
+        align-items: center;
+
+        a {
+            font-size: 30px;
+            font-weight: 600;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        img {
+            max-width: 150px;
+        }
+    }
+
+    .navbar-midlle {
+        a {
+            padding: 0 20px;
+            font-size: 20px;
+
+            &:hover {
+                font-weight: 600;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .navbar-right {
+        display: flex;
+
+        p {
+            font-size: 25px;
+
+        }
+
+        a {
+            padding: 0px 2px;
+            font-size: 20px;
+        }
+
+        &:hover {
+            font-weight: 600;
+        }
+    }
+}
