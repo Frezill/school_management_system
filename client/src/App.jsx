@@ -1,11 +1,14 @@
 import { Route, Routes } from 'react-router-dom'
 import './styles/App.scss'
+import { ToastContainer } from 'react-toastify';
 
 import Navbar from "./components/Navbar"
 import Homepage from './pages/Homepage'
 import Footer from './components/Footer'
 import Learning from './pages/Learning'
 import Introduction from './pages/Introduction'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 const App = () => {
   return (
@@ -15,8 +18,23 @@ const App = () => {
         <Route path='/' element={<Homepage />} />
         <Route path='/learning' element={<Learning />} />
         <Route path='/introduction' element={<Introduction />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       <Footer />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
 
   )

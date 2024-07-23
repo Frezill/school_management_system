@@ -7,7 +7,7 @@ const router = express.Router()
 const initMajorRoute = (app) => {
 
     router.post('/major', checkUserJWT, isAdmin, postCreateMajor)
-    router.get('/major', checkUserJWT, getMajor)
+    router.get('/major', getMajor)
     router.put('/major', checkUserJWT, isAdmin, putUpdateMajor)
     router.delete('/major', checkUserJWT, isAdmin, deleteMajor)
 

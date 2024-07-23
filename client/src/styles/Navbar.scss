@@ -1,6 +1,6 @@
 @import './breakpoint.scss';
 
-.navbar {
+.navbar-container {
     display: flex;
     justify-content: space-between;
     height: 110px;
@@ -13,7 +13,7 @@
         padding: 3px 20px;
     }
 
-    .navbar-left {
+    .navbar_left {
         display: flex;
         align-items: center;
 
@@ -40,7 +40,7 @@
         }
     }
 
-    .navbar-midlle {
+    .navbar_midlle {
         a {
             padding: 0 20px;
             font-size: 20px;
@@ -57,17 +57,8 @@
         }
     }
 
-    .navbar-right {
+    .navbar_right {
         display: flex;
-
-        p {
-            font-size: 25px;
-            color: white;
-
-            @include md {
-                font-size: 20px;
-            }
-        }
 
         a {
             padding: 0px 2px;
@@ -77,12 +68,10 @@
             @include md {
                 font-size: 15px;
             }
-        }
 
-
-
-        &:hover {
-            font-weight: 600;
+            &:hover {
+                font-weight: 600;
+            }
         }
     }
 }
