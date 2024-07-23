@@ -1,0 +1,51 @@
+.homepage-container {
+
+    .image {
+        img {
+            width: 100%;
+            height: 65vw;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        background-color: #ecf0f1;
+
+        .title {
+            text-align: center;
+            font-size: 30px;
+            padding: 20px 0;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .description {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+            padding: 50px 100px;
+
+            .topic {
+                justify-content: center;
+
+                .icon {
+                    font-size: 35px;
+                    color: #2c3e50;
+                }
+
+                .quantity {
+                    color: #2c3e50;
+                    font-size: 45px;
+                    font-weight: 500;
+                }
+
+                .role {
+                    color: #34495e;
+                    font-size: 25px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}

@@ -15,7 +15,6 @@ const Navbar = () => {
             <div className="navbar-midlle">
                 <Link to='/'>Home</Link>
                 <Link to='/introduction'>Introduction</Link>
-                <Link to='/news'>News</Link>
                 <Link to='/learning'>Learning</Link>
             </div>
             <div className="navbar-right">
