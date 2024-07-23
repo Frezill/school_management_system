@@ -133,9 +133,7 @@ const register = () => {
                     }
                 </Row>
 
-                <Button variant="primary" className='px-4' onClick={handleRegisterButton}>
-                    REGISTER
-                </Button>{' '}
+                <button onClick={handleRegisterButton}>Register</button>
 
             </div>
         </div>

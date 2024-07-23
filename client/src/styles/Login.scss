@@ -1,0 +1,35 @@
+.login-container {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222f3e;
+
+    .login-content {
+        border: 2px solid #2c3e50;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: rgba(236, 240, 241, 0.5);
+        width: 350px;
+
+        .title {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        button {
+            padding: 3px 15px;
+            color: white;
+            background-color: #222f3e;
+            border-radius: 6px;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #34495e;
+            }
+        }
+
+    }
+}

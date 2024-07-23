@@ -10,5 +10,18 @@
         padding: 10px;
         border-radius: 10px;
         background-color: rgba(236, 240, 241, 0.5);
+
+        button {
+            padding: 3px 15px;
+            color: white;
+            background-color: #222f3e;
+            border-radius: 6px;
+            border: none;
+
+            &:hover {
+                cursor: pointer;
+                background-color: #34495e;
+            }
+        }
     }
 }

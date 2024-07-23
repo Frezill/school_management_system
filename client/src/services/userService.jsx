@@ -35,4 +35,18 @@ const registerNewUserService = async (data) => {
     }
 }
 
-export { registerNewUserService }
+const loginUserService = async (email, password) => {
+    try {
+        let response = await axios.post('/login', { email, password })
+        if (response.EC === 0) {
+            toast.success(response.EM)
+            return response.DT.token
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        log(error)
+    }
+}
+
+export { registerNewUserService, loginUserService }
