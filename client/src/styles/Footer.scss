@@ -1,3 +1,5 @@
+@import './breakpoint.scss';
+
 .footer-container {
     display: flex;
     flex-direction: column;
@@ -29,6 +31,10 @@
                     }
                 }
             }
+
+            @include md {
+                display: none;
+            }
         }
 
         .footer-midlle {
@@ -38,6 +44,11 @@
                 li {
                     padding: 5px 0;
                 }
+            }
+
+            @include md {
+                width: 70%;
+                font-size: 13px;
             }
         }
 
@@ -54,11 +65,20 @@
                     }
                 }
             }
+
+            @include md {
+                width: 30%;
+                font-size: 13px;
+            }
         }
     }
 
     .footer-bottom {
         text-align: center;
+
+        @include md {
+            font-size: 15px;
+        }
     }
 
 

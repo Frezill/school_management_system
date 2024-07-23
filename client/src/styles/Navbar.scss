@@ -8,6 +8,11 @@
     background-color: #0a3d62;
     padding: 3px 50px;
 
+    @include md {
+        height: 70px;
+        padding: 3px 20px;
+    }
+
     .navbar-left {
         display: flex;
         align-items: center;
@@ -20,10 +25,18 @@
             &:hover {
                 cursor: pointer;
             }
+
+            @include lg {
+                display: none;
+            }
         }
 
         img {
             max-width: 150px;
+
+            @include md {
+                max-width: 75px;
+            }
         }
     }
 
@@ -37,6 +50,10 @@
                 font-weight: 600;
                 cursor: pointer;
             }
+
+            @include md {
+                font-size: 15px;
+            }
         }
     }
 
@@ -46,13 +63,23 @@
         p {
             font-size: 25px;
             color: white;
+
+            @include md {
+                font-size: 20px;
+            }
         }
 
         a {
             padding: 0px 2px;
             font-size: 20px;
             color: white;
+
+            @include md {
+                font-size: 15px;
+            }
         }
+
+
 
         &:hover {
             font-weight: 600;
