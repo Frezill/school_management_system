@@ -43,7 +43,7 @@ instance.interceptors.response.use(function (response) {
             return error.response.data;
         }
         //not found
-        case 403: {
+        case 404: {
             toast.error(`This function is not available now`);
             return error.response.data;
         }

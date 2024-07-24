@@ -49,4 +49,28 @@ const loginUserService = async (email, password) => {
     }
 }
 
-export { registerNewUserService, loginUserService }
+const getUserByIdService = async (id) => {
+    try {
+        let response = await axios.get(`detailUser?id=${id}`)
+        if (response?.EC === 0) {
+            let data = response.DT
+            let user = {
+                id: data.id,
+                firstName: data.first_name,
+                lastName: data.last_name,
+                email: data.email,
+                phone: data.phone,
+                address: data.address,
+                major: data.Major.name,
+                role: data.Role.name,
+                profileImage: data.profileImage,
+                dob: data.dob.split('T')[0]
+            }
+            return user;
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { registerNewUserService, loginUserService, getUserByIdService }

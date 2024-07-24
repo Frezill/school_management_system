@@ -1,0 +1,121 @@
+@import './breakpoint.scss';
+
+.profile-container {
+    min-height: 75vh;
+    background-color: #f5f6fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .profile-content {
+        display: flex;
+        flex-direction: column;
+        border: 2px solid #718093;
+        box-shadow: 5px 5px #dcdde1;
+        width: 700px;
+        justify-content: center;
+        border-radius: 20px;
+        gap: 20px;
+        overflow: hidden;
+        background-color: #ecf0f1;
+
+        @include ml {
+            width: 500px;
+        }
+
+
+        .top-content {
+            display: flex;
+            align-items: center;
+            background-color: #fbc531;
+            height: 70px;
+
+            @include ml {
+                height: 50px;
+            }
+
+            img {
+                width: 60px;
+                margin: 0 50px;
+
+                @include ml {
+                    width: 40px;
+                }
+            }
+
+            .title {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+
+
+                .title-1 {
+                    font-size: 25px;
+                    font-weight: 700;
+                    color: #2c3e50;
+
+                    @include ml {
+                        font-size: 20px;
+                    }
+                }
+
+                .title-2 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #2c3e50;
+
+                    @include ml {
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+
+        .bottom-content {
+            display: flex;
+            gap: 20px;
+
+
+            .profile-left {
+                img {
+                    width: 200px;
+                    height: 265px;
+                    margin: 0 20px 20px 10px;
+
+                    @include ml {
+                        width: 100px;
+                        height: 134px;
+                    }
+                }
+            }
+
+            .profile-right {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                .name {
+                    font-size: 30px;
+                    font-weight: 800;
+                    color: #0652DD;
+
+                    @include ml {
+                        font-size: 20px;
+                    }
+                }
+
+                .content {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #2f3640;
+
+                    @include ml {
+                        font-size: 15px;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+
+        }
+    }
+}

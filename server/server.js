@@ -19,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 configCors(app)
 app.use(cookieParser())
+app.use("/images", express.static('src/uploads'))
 
 //config routes
 initUserRoutes(app)

@@ -40,7 +40,7 @@ const Navbar = () => {
                                 </div>
                                 <div >
                                     <ul className="nav-profile-dropdown">
-                                        <li><Link >Profile</Link></li>
+                                        <li><Link to='/profile' >Profile</Link></li>
                                         {user.role === 'student' &&
                                             <li><Link>Dashboard</Link></li>
                                         }

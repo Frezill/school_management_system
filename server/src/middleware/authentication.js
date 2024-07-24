@@ -88,7 +88,7 @@ const isSubjectRegistrationPeriod = async (req, res, next) => {
         if (check) {
             next()
         } else {
-            return res.status(403).json({
+            return res.status(404).json({
                 EC: 4,
                 EM: 'Registration subject service not ready now',
                 DT: ''
@@ -110,7 +110,7 @@ const isPayTuitionPeriod = async (req, res, next) => {
         if (payTuitionPeriod.isActive) {
             next()
         } else {
-            return res.status(403).json({
+            return res.status(404).json({
                 EC: 4,
                 EM: 'Pay tuition service not ready now',
                 DT: ''
