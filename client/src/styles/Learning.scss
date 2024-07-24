@@ -1,3 +1,5 @@
+@import './breakpoint.scss';
+
 .learning-container {
     min-height: 75vh;
     background-color: #ecf0f1;
@@ -6,6 +8,9 @@
         margin: 50px 100px;
         display: flex;
 
+        @include md {
+            margin: 50px 50px;
+        }
 
         .search-content {
             position: relative;
@@ -15,6 +20,14 @@
                 padding: 5px;
                 border-radius: 5px;
                 position: absolute;
+
+                @include lg {
+                    width: 350px;
+                }
+
+                @include md {
+                    width: 200px;
+                }
             }
 
             .search-icon {
@@ -22,11 +35,27 @@
                 font-size: 20px;
                 margin-left: 470px;
                 cursor: pointer;
+
+                @include lg {
+                    margin-left: 320px;
+                }
+
+                @include md {
+                    margin-left: 170px;
+                }
             }
         }
 
         .semester-content {
-            margin-left: 1000px;
+            margin-left: 600px;
+
+            @include lg {
+                margin-left: 360px;
+            }
+
+            @include md {
+                margin-left: 220px;
+            }
         }
 
 
@@ -43,6 +72,10 @@
             background-color: #f39c12;
             margin: 10px 50px;
             padding: 6px 0;
+
+            @include mm {
+                font-size: 13px;
+            }
         }
 
         .detail-subject {
@@ -51,6 +84,10 @@
             background-color: #bdc3c7;
             margin: 10px 50px;
             padding: 6px 0;
+
+            @include mm {
+                font-size: 13px;
+            }
 
             &:hover {
                 background-color: #95a5a6;

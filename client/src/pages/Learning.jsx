@@ -81,41 +81,44 @@ const Learning = () => {
                 </div>
 
             </div>
-            <div className="subject-content">
-                <div className="subject-title">
-                    <div className="col-sm-1"></div>
-                    <div className='col-sm-1'>ID</div>
-                    <div className='col-sm-4'>Name</div>
-                    <div className='col-sm-2'>Credit</div>
-                    <div className='col-sm-2'>Tuition</div>
-                    <div className='col-sm-2'></div>
+            <div class="subject-content">
+                <div class="subject-title d-flex flex-wrap justify-content-between">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-1 col-lg-1">ID</div>
+                    <div class="col-sm-4 col-lg-4">Name</div>
+                    <div class="col-sm-2 col-lg-2">Credit</div>
+                    <div class="col-sm-2 col-lg-2">Tuition</div>
+                    <div class="col-sm-2 col-lg-1"></div>
+                    <div class="col-sm-1"></div>
                 </div>
                 {
                     subjectList &&
                     subjectList.map((item, index) => (
-                        <div className="detail-subject" key={`subject - ${index}`}>
-                            <div className="col-sm-1"></div>
-                            <div className="col-sm-1">
+                        <div class="detail-subject d-flex flex-wrap justify-content-between" key={`subject - ${index}`}>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-1 col-lg-1">
                                 {item.id}
                             </div>
-                            <div className="col-sm-4">
+                            <div class="col-sm-4 col-lg-4">
                                 {item.name}
                             </div>
-                            <div className="col-sm-2">
+                            <div class="col-sm-2 col-lg-2">
                                 {item.number_of_credits}
                             </div>
-                            <div className="col-sm-2">
+                            <div class="col-sm-2 col-lg-2">
                                 {parseFloat(item.tuition)} $
                             </div>
-                            <div className="action col-sm-2">
-                                <div className="enroll">
-                                    <button onClick={() => { handleEnrollButton(item) }}>Enroll</button>
+                            <div class="col-sm-2 col-lg-2">
+                                <div class="enroll">
+                                    <button onClick={() => handleEnrollButton(item)}>Enroll</button>
                                 </div>
                             </div>
+                            <div class="col-sm-1 col-lg-1"></div>
                         </div>
                     ))
                 }
             </div>
+
 
             <div className='paginate'>
                 {
