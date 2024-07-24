@@ -1,5 +1,7 @@
 const express = require('express')
 require('dotenv').config()
+const cookieParser = require('cookie-parser')
+
 const initSubjectRoute = require('./src/routes/subjectRoute');
 const initMajorRoute = require('./src/routes/majorRoute');
 const initSemesterRoute = require('./src/routes/semesterRoute');
@@ -16,7 +18,7 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 configCors(app)
-
+app.use(cookieParser())
 
 //config routes
 initUserRoutes(app)

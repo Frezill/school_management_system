@@ -10,7 +10,7 @@ const instance = axios.create({
 instance.defaults.withCredentials = true;
 
 // // Alter defaults after instance has been created
-instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("jwt")}`;
+instance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`;
 
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
@@ -42,14 +42,14 @@ instance.interceptors.response.use(function (response) {
             toast.error(`You don't have permission to access this resoure...`);
             return error.response.data;
         }
+        //not found
+        case 403: {
+            toast.error(`This function is not available now`);
+            return error.response.data;
+        }
         //bad request
         case 400: {
             return Promise.reject(error);
-        }
-        //not found
-        case 404: {
-            toast.error(`This function is not available now`);
-            return error.response.data;
         }
         //conflict
         case 409: {

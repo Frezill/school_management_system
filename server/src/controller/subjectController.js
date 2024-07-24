@@ -1,10 +1,11 @@
 const db = require('../models/index.js')
+const { Op } = require("sequelize")
 
 const Subject = db.Subject
 
 const postCreateSubject = async (req, res) => {
     try {
-        let { name, tuition, number_of_credits, description } = req.body
+        let { id, name, tuition, number_of_credits, description } = req.body
         if (!name || !tuition || !number_of_credits || !description) {
             return res.status(200).json({
                 EC: 3,
@@ -12,6 +13,16 @@ const postCreateSubject = async (req, res) => {
                 DT: ''
             })
         }
+
+        let subjectExisted = await Subject.findOne({ id })
+        if (subjectExisted) {
+            return res.status(200).json({
+                EC: 3,
+                EM: `${id} was existed in server`,
+                DT: ''
+            })
+        }
+
         await Subject.create(req.body)
         return res.status(201).json({
             EC: 0,
@@ -30,11 +41,29 @@ const postCreateSubject = async (req, res) => {
 
 const getSubject = async (req, res) => {
     try {
-        let response = await Subject.findAll({ attributes: ['id', 'name', 'tuition', 'number_of_credits', 'description'] });
+        let { limit, page } = req.query
+        limit = +limit;
+        page = +page;
+
+        let offset = (page - 1) * limit
+        const { count, rows } = await Subject.findAndCountAll({
+            offset,
+            limit,
+            attributes: ['id', 'name', 'tuition', 'number_of_credits', 'description']
+        });
+
+        let totalPages = Math.ceil(count / limit) //round
+
+        let data = {
+            totalRows: count,
+            totalPages: totalPages,
+            subjects: rows
+        }
+
         return res.status(201).json({
             EC: 0,
             EM: 'Get subject successful',
-            DT: response
+            DT: data
         })
     } catch (error) {
         console.log(error);
@@ -146,6 +175,48 @@ const deleteSubject = async (req, res) => {
     }
 }
 
+const searchSubjectController = async (req, res) => {
+    try {
+        let { searchValue, limit, page } = req.query
+        limit = +limit;
+        page = +page;
+        let offset = (page - 1) * limit
+        let { count, rows } = await Subject.findAndCountAll({
+            where: {
+                // name: { [Op.like]: '%' + searchValue + '%' }
+                [Op.or]:
+                    [
+                        { name: { [Op.like]: '%' + searchValue + '%' } },
+                        { id: { [Op.like]: '%' + searchValue + '%' } }
+                    ]
+            },
+            attributes: ['id', 'name', 'tuition', 'number_of_credits', 'description'],
+            offset,
+            limit,
+        })
+
+        let totalPages = Math.ceil(count / limit) //round
+
+        let data = {
+            totalRows: count,
+            totalPages: totalPages,
+            subjects: rows
+        }
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get search subject success',
+            DT: data
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error in server',
+            DT: ''
+        })
+    }
+}
 
 
-module.exports = { postCreateSubject, getSubject, getSubjectById, putUpdateSubject, deleteSubject }
+module.exports = { postCreateSubject, getSubject, getSubjectById, putUpdateSubject, deleteSubject, searchSubjectController }

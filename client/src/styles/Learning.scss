@@ -1,0 +1,79 @@
+.learning-container {
+    min-height: 75vh;
+    background-color: #ecf0f1;
+
+    .top-content {
+        margin: 50px 100px;
+        display: flex;
+
+
+        .search-content {
+            position: relative;
+
+            input {
+                width: 500px;
+                padding: 5px;
+                border-radius: 5px;
+                position: absolute;
+            }
+
+            .search-icon {
+                position: absolute;
+                font-size: 20px;
+                margin-left: 470px;
+                cursor: pointer;
+            }
+        }
+
+        .semester-content {
+            margin-left: 1000px;
+        }
+
+
+    }
+
+    .subject-content {
+        display: flex;
+        flex-direction: column;
+
+        .subject-title {
+            display: flex;
+            font-weight: 700;
+            font-size: 17px;
+            background-color: #f39c12;
+            margin: 10px 50px;
+            padding: 6px 0;
+        }
+
+        .detail-subject {
+            display: flex;
+            font-size: 17px;
+            background-color: #bdc3c7;
+            margin: 10px 50px;
+            padding: 6px 0;
+
+            &:hover {
+                background-color: #95a5a6;
+            }
+
+            button {
+                padding: 2px 10px;
+                border: none;
+                background-color: #2c3e50;
+                border-radius: 5px;
+                color: white;
+
+                &:hover {
+                    background-color: #34495e;
+                }
+            }
+        }
+    }
+
+    .paginate {
+        margin: 40px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

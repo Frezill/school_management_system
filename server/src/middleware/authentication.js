@@ -84,10 +84,11 @@ const Period = db.Period
 const isSubjectRegistrationPeriod = async (req, res, next) => {
     try {
         let registrationPeriod = await Period.findOne({ where: { name: 'subject_registration' } })
-        if (registrationPeriod.isActive) {
+        let check = +registrationPeriod.isActive
+        if (check) {
             next()
         } else {
-            return res.status(404).json({
+            return res.status(403).json({
                 EC: 4,
                 EM: 'Registration subject service not ready now',
                 DT: ''
@@ -109,7 +110,7 @@ const isPayTuitionPeriod = async (req, res, next) => {
         if (payTuitionPeriod.isActive) {
             next()
         } else {
-            return res.status(404).json({
+            return res.status(403).json({
                 EC: 4,
                 EM: 'Pay tuition service not ready now',
                 DT: ''
