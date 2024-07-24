@@ -58,7 +58,47 @@
     }
 
     .navbar_right {
-        display: flex;
+
+        margin-right: 20px;
+
+        .dropdown-profile {
+            position: relative;
+            align-items: center;
+
+            .profile {
+                font-size: 35px;
+                color: white;
+            }
+
+            .nav-profile-dropdown {
+                position: absolute;
+                display: none;
+                right: 0;
+
+                li {
+                    list-style: none;
+                    font-size: 20px;
+                    color: white;
+
+                    &:hover {
+                        cursor: pointer;
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                .nav-profile-dropdown {
+                    display: flex;
+                    flex-direction: column;
+                    background-color: rgba(45, 52, 54, 0.8);
+                    border-radius: 8px;
+                    padding: 8px 20px;
+                }
+            }
+        }
 
         a {
             padding: 0px 2px;
