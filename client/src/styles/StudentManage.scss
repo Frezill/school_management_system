@@ -1,0 +1,51 @@
+@import './breakpoint.scss';
+
+.student-manage-container {
+    min-height: 75vh;
+
+    .student-container-bottom {
+        display: flex;
+        flex-direction: column;
+
+        .subject-title {
+            display: flex;
+            font-weight: 700;
+            font-size: 17px;
+            background-color: #f39c12;
+            margin: 10px 50px;
+            padding: 6px 0;
+
+            @include mm {
+                font-size: 13px;
+            }
+        }
+
+        .detail-subject {
+            display: flex;
+            font-size: 17px;
+            background-color: #bdc3c7;
+            margin: 10px 50px;
+            padding: 6px 0;
+
+            @include mm {
+                font-size: 13px;
+            }
+
+            &:hover {
+                background-color: #95a5a6;
+            }
+
+            button {
+                padding: 2px 10px;
+                border: none;
+                background-color: #2c3e50;
+                border-radius: 5px;
+                color: white;
+
+                &:hover {
+                    background-color: #34495e;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+@import './breakpoint.scss';
+
+.student-modal-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 20%;
+
+    @include lg {
+        margin: 0 5%;
+    }
+}
+
+.student-modal-attendance {
+    margin-left: 30px;
+    margin-top: 30px;
+
+    @include lg {
+        margin-left: 5%;
+    }
+
+    .student-modal-attendance-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin-top: 10px;
+
+        @include lg {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .appearance {
+            color: #16a085;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .absent {
+            color: #c0392b;
+            font-size: 15px;
+            font-weight: 600;
+        }
+    }
+
+}

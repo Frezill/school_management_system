@@ -4,6 +4,7 @@ import { Image, Col, Row, Form, Button } from 'react-bootstrap';
 import { getMajorService } from '../services/majorService';
 import { registerNewUserService } from '../services/userService';
 import { useNavigate } from 'react-router-dom'
+import { getRoleService } from '../services/roleService';
 
 
 const register = () => {
@@ -19,9 +20,11 @@ const register = () => {
         address: '',
         dob: '',
         major_id: '',
+        role_id: '',
         profileImage: null
     })
     const [major, setMajor] = useState([])
+    const [role, setRole] = useState([])
 
     const navigate = useNavigate()
 
@@ -41,6 +44,13 @@ const register = () => {
         }
     }
 
+    const getRole = async () => {
+        let response = await getRoleService()
+        if (response.EC === 0) {
+            setRole(response.DT)
+        }
+    }
+
     const handleRegisterButton = async () => {
         let response = await registerNewUserService(formData)
         if (response) {
@@ -50,6 +60,7 @@ const register = () => {
 
     useEffect(() => {
         getMajor()
+        getRole()
     }, [])
 
     return (
@@ -115,6 +126,19 @@ const register = () => {
                         {
                             major &&
                             major.map((item, index) => (
+                                <option value={item.id} key={`option - ${index}`}>{item.name} {item.year}</option>
+                            ))
+                        }
+                    </Form.Select>
+                </Form.Group>
+
+                <Form.Group className='mb-3' >
+                    <Form.Label><strong>Role</strong></Form.Label>
+                    <Form.Select aria-label="" name='role_id' onChange={handleChange}>
+                        <option>Select your role</option>
+                        {
+                            role &&
+                            role.map((item, index) => (
                                 <option value={item.id} key={`option - ${index}`}>{item.name}</option>
                             ))
                         }

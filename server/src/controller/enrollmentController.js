@@ -4,6 +4,7 @@ const Enrollment = db.Enrollment
 const User = db.User
 const Subject = db.Subject
 const Semester = db.Semester
+const Role = db.Role
 
 const postCreateEnrollment = async (req, res) => {
     try {
@@ -153,12 +154,18 @@ const putUpdateAttendance = async (req, res) => {
 
 const getEnrollment = async (req, res) => {
     try {
+        let { subject_id, semester_id } = req.query
         let data = await Enrollment.findAll({
+            where: { subject_id, semester_id },
             attributes: ['id', 'score', 'attendance', 'completed'],
             include: [
                 {
                     model: User,
-                    attributes: ['id', 'last_name', 'first_name', 'email']
+                    attributes: ['id', 'last_name', 'first_name', 'email'],
+                    include: {
+                        model: Role,
+                        attributes: ['id', 'name']
+                    }
                 },
                 {
                     model: Subject,
@@ -233,5 +240,40 @@ const deleteEnrollment = async (req, res) => {
     }
 }
 
+const getEnrollmentByStudentId = async (req, res) => {
+    try {
+        let { userId, semesterId } = req.query
+        let data = await Enrollment.findAll({
+            where: { user_id: userId, semester_id: semesterId },
+            attributes: ['id', 'score', 'attendance', 'completed'],
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'last_name', 'first_name', 'email']
+                },
+                {
+                    model: Subject,
+                    attributes: ['id', 'name', 'number_of_credits', 'description']
+                },
+                {
+                    model: Semester,
+                    attributes: ['id', 'semester']
+                }
+            ]
+        })
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get enrollment by user id successful',
+            DT: data
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
 
-module.exports = { postCreateEnrollment, putUpdateScore, putUpdateAttendance, getEnrollment, deleteEnrollment }
+module.exports = { postCreateEnrollment, putUpdateScore, putUpdateAttendance, getEnrollment, deleteEnrollment, getEnrollmentByStudentId }

@@ -56,7 +56,7 @@ const checkUserJWT = (req, res, next) => {
 }
 
 const isTeacher = (req, res, next) => {
-    if (req && req.user && (req.user.role === 'teacher' || req.user.role === 'admin')) {
+    if (req && req.user && (req.user.role === 'Instrucror' || req.user.role === 'Admin')) {
         next()
     } else {
         return res.status(403).json({
@@ -68,7 +68,7 @@ const isTeacher = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-    if (req && req.user && req.user.role === 'admin') {
+    if (req && req.user && req.user.role === 'Admin') {
         next()
     } else {
         return res.status(403).json({

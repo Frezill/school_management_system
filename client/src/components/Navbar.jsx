@@ -41,10 +41,10 @@ const Navbar = () => {
                                 <div >
                                     <ul className="nav-profile-dropdown">
                                         <li><Link to='/profile' >Profile</Link></li>
-                                        {user.role === 'student' &&
-                                            <li><Link>Dashboard</Link></li>
+                                        {user.role === 'Student' &&
+                                            <li><Link to='/studentManage'>Manage</Link></li>
                                         }
-                                        <li onClick={handleLogout}><Link to='/'>Log out</Link></li>
+                                        <li onClick={handleLogout}><Link to='/'>Logout</Link></li>
                                     </ul>
                                 </div>
                             </div>

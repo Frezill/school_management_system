@@ -20,8 +20,6 @@ const registerNewUserService = async (data) => {
             register_form.append(key, data[key])
         }
 
-        register_form.append('role_id', '1')
-
         let response = await axios.post('/register', register_form)
         if (response.EC === 0) {
             toast.success(response.EM)
