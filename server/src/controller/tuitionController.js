@@ -16,7 +16,7 @@ const addTuition = async (req, res) => {
             }
         })
 
-        if (user.Role.name === 'student') {
+        if (user.Role.name === 'Student') {
 
             let subject = await Subject.findOne({ where: { id: subject_id } })
 

@@ -253,7 +253,7 @@ const getEnrollmentByStudentId = async (req, res) => {
                 },
                 {
                     model: Subject,
-                    attributes: ['id', 'name', 'number_of_credits', 'description']
+                    attributes: ['id', 'name', 'number_of_credits', 'description', 'tuition']
                 },
                 {
                     model: Semester,

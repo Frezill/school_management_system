@@ -1,0 +1,46 @@
+.tuition-container {
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #ecf0f1;
+
+    .tuition-bottom {
+        margin: 50px 50px 50px 50px;
+        display: flex;
+        flex-direction: column;
+
+        gap: 20px;
+
+        .student-information {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tuition-information {
+
+            .tuition-title {
+                display: grid;
+                grid-template-columns: 3fr 4fr 2fr 1fr;
+                font-weight: 700;
+            }
+
+            .detail-tuition {
+                display: grid;
+                grid-template-columns: 3fr 4fr 2fr 1fr;
+            }
+        }
+
+        .tuition-total {
+            display: flex;
+
+            .tuition-total-content {
+                display: flex;
+                flex-direction: column;
+            }
+
+            img {
+                width: 200px;
+            }
+        }
+    }
+}

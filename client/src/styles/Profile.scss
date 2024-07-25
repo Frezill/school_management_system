@@ -18,6 +18,7 @@
         gap: 20px;
         overflow: hidden;
         background-color: #ecf0f1;
+        padding-bottom: 20px;
 
         @include ml {
             width: 500px;
@@ -78,8 +79,8 @@
 
             .profile-left {
                 img {
-                    width: 200px;
-                    height: 265px;
+                    width: 150px;
+                    height: 200px;
                     margin: 0 20px 20px 10px;
 
                     @include ml {

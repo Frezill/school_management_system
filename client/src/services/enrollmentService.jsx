@@ -4,6 +4,8 @@ import axios from '../setup/axios.jsx'
 const createEnrollmentService = async (user_id, semester_id, subject_id) => {
     try {
         let response = await axios.post('/enrollment', { user_id, semester_id, subject_id })
+        let student_id = user_id;
+        await axios.post('/tuition', { student_id, semester_id, subject_id })
         if (response.EC === 0) {
             toast.success(response.EM)
         } else {
@@ -25,6 +27,7 @@ const getEnrollmentForStudentService = async (userId, semesterId) => {
             let subjectName = item.Subject.name
             let subjectDescription = item.Subject.description
             let subjectCredits = item.Subject.number_of_credits
+            let subjectTuition = item.Subject.tuition
             let score = item.score
             let completed = item.completed
             let enrollmentId = item.id
@@ -35,7 +38,7 @@ const getEnrollmentForStudentService = async (userId, semesterId) => {
                 attendance = entriesArray
             }
 
-            data.push({ semester, semesterId, subjectId, subjectName, subjectDescription, subjectCredits, score, attendance, completed, enrollmentId })
+            data.push({ semester, semesterId, subjectId, subjectName, subjectDescription, subjectCredits, subjectTuition, score, attendance, completed, enrollmentId })
         })
 
         return data

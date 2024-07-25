@@ -39,6 +39,7 @@ const StudentManageModal = (props) => {
                     <a><strong>Score: </strong>{modalData.score}</a>
                     <a><strong>Completed: </strong>{modalData.completed ? 'DONE' : 'LEARNING'}</a>
                     <a><strong>Number of credits: </strong>{modalData.subjectCredits}</a>
+                    <a><strong>Tuition: </strong>{parseFloat(+modalData.subjectTuition)} $</a>
                 </div>
 
                 <div className="student-modal-attendance">

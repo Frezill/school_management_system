@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Profile from './pages/Profile';
 import StudentManage from './pages/StudentManage';
+import Tuition from './pages/Tuition';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/studentManage' element={<StudentManage />} />
+        <Route path='/tuition' element={<Tuition />} />
       </Routes>
 
       <Footer />

@@ -41,6 +41,10 @@
                     align-items: center;
                 }
             }
+
+            @include mm {
+                text-align: center;
+            }
         }
 
 
