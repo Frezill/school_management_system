@@ -71,4 +71,49 @@ const getUserByIdService = async (id) => {
     }
 }
 
-export { registerNewUserService, loginUserService, getUserByIdService }
+const getUserService = async (limit, page, role_id) => {
+    try {
+        let response = await axios.get(`/user?page=${page}&limit=${limit}&role_id=${role_id}`)
+        return response.DT
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const searchUserService = async (limit, page, role_id, searchValue) => {
+    try {
+        let response = await axios.get(`/searchUser?page=${page}&limit=${limit}&role_id=${role_id}&searchValue=${searchValue}`)
+        return response.DT
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteUserService = async (user_id, role_id) => {
+    try {
+        let id = user_id
+        let response = await axios.delete(`/user?id=${id}&role_id=${role_id}`)
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const updateUserService = async (data) => {
+    try {
+        let response = await axios.put('/user', data)
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { registerNewUserService, loginUserService, getUserByIdService, getUserService, searchUserService, deleteUserService, updateUserService }

@@ -13,7 +13,7 @@ const Homepage = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             setCurrentImageIndex((prevIndex) => (prevIndex + 1) % university_images.length);
-        }, 10000);
+        }, 5000);
 
         return () => clearInterval(intervalId);
     }, [university_images]);

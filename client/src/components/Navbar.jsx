@@ -34,6 +34,10 @@ const Navbar = () => {
                     user?.role === 'Instructor' &&
                     <Link to='/teaching'>Teaching</Link>
                 }
+                {
+                    user?.role === 'Admin' &&
+                    <Link to='/manageAccount'>Manage Account</Link>
+                }
             </div>
 
             <div className="navbar_right">
@@ -61,8 +65,6 @@ const Navbar = () => {
                         :
                         <>
                             <a><Link to='/login'>Login</Link></a>
-                            <a>|</a>
-                            <a><Link to='/register'>Register</Link></a>
                         </>
                 }
             </div>

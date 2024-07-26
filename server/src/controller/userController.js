@@ -1,12 +1,16 @@
 const db = require('../models/index.js')
 const validator = require('validator');
+const { Op } = require("sequelize");
 const { checkEmailExist, checkPhoneExist } = require('./login-registerController.js')
 
 const User = db.User
+const Enrollment = db.Enrollment
+const Tuition = db.Tuition
+const Role = db.Role
 
 const getUser = async (req, res) => {
     try {
-        let { limit, page } = req.query
+        let { limit, page, role_id } = req.query
         limit = +limit;
         page = +page;
 
@@ -15,6 +19,7 @@ const getUser = async (req, res) => {
             offset,
             limit,
             attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'address', 'dob'],
+            where: { '$Role.id$': { [Op.eq]: role_id } },
             include: [{
                 model: db.Role,
                 attributes: ['id', 'name', 'description']
@@ -96,8 +101,7 @@ const getUserById = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        let { id, first_name, last_name, phone, email, address, dob } = req.body
-        let profileImage = req.file
+        let { id, first_name, last_name, phone, address, dob } = req.body
 
         let userExisted = await User.findOne({ where: { id } })
         if (!userExisted) {
@@ -108,37 +112,19 @@ const updateUser = async (req, res) => {
             })
         }
 
-        //check exist email
-        let emailExisted = await checkEmailExist(email)
-        if (emailExisted) {
-            return res.status(200).json({
-                EC: 3,
-                EM: 'Email existed in server',
-                DT: ''
-            })
-        }
-
         //check phone exist
-        let phoneExisted = await checkPhoneExist(phone)
-        if (phoneExisted) {
-            return res.status(200).json({
-                EC: 3,
-                EM: 'Phone existed in server',
-                DT: ''
-            })
+        if (userExisted.phone !== phone) {
+            let phoneExisted = await checkPhoneExist(phone)
+            if (phoneExisted) {
+                return res.status(200).json({
+                    EC: 3,
+                    EM: 'Phone existed in server',
+                    DT: ''
+                })
+            }
         }
 
-        //check valid email
-        let isValidEmail = validator.isEmail(email);
-        if (!isValidEmail && email) {
-            return res.status(200).json({
-                EC: 3,
-                EM: 'Invalid email',
-                DT: ''
-            })
-        }
-
-        await User.update({ first_name, last_name, phone, email, address, dob, profileImage: profileImage?.filename }, { where: { id } })
+        await User.update({ first_name, last_name, phone, address, dob }, { where: { id } })
 
         return res.status(200).json({
             EC: 0,
@@ -158,8 +144,29 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     try {
-        let { id } = req.query
+        let { id, role_id } = req.query
+
+        if (+role_id === 3) {
+            let user = await User.findAll({
+                where: {
+                    '$Role.id$': role_id,
+                },
+                include: {
+                    model: Role
+                }
+            })
+            if (user.length <= 2) {
+                return res.status(200).json({
+                    EC: 3,
+                    EM: 'The number of admins must be greater than 2',
+                    DT: ''
+                })
+            }
+        }
+
         await User.destroy({ where: { id } })
+        await Enrollment.destroy({ where: { user_id: id } })
+        await Tuition.destroy({ where: { student_id: id } })
         return res.status(200).json({
             EC: 0,
             EM: 'Delete user successful',
@@ -175,4 +182,57 @@ const deleteUser = async (req, res) => {
     }
 }
 
-module.exports = { getUser, getUserById, updateUser, deleteUser }
+const searchUser = async (req, res) => {
+    try {
+        let { limit, page, role_id, searchValue } = req.query
+        limit = +limit;
+        page = +page;
+
+        let offset = (page - 1) * limit
+        const { count, rows } = await User.findAndCountAll({
+            offset,
+            limit,
+            attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'address', 'dob'],
+            where: {
+                '$Role.id$': { [Op.eq]: role_id },
+                [Op.or]:
+                    [
+                        { first_name: { [Op.like]: '%' + searchValue + '%' } },
+                        { last_name: { [Op.like]: '%' + searchValue + '%' } },
+                        { id: { [Op.like]: '%' + searchValue + '%' } },
+                        { '$Major.name$': { [Op.like]: '%' + searchValue + '%' } }
+                    ]
+            },
+            include: [{
+                model: db.Role,
+                attributes: ['id', 'name', 'description']
+            }, {
+                model: db.Major,
+                attributes: ['id', 'name', 'year']
+            }],
+        })
+
+        let totalPages = Math.ceil(count / limit) //round
+
+        let data = {
+            totalRows: count,
+            totalPages: totalPages,
+            users: rows
+        }
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Search users successful',
+            DT: data
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+module.exports = { getUser, getUserById, updateUser, deleteUser, searchUser }
