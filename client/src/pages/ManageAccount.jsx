@@ -25,7 +25,6 @@ const ManageAccount = () => {
     };
 
     const fetchUser = async () => {
-        setPage(1)
         let limit = 5;
         let role_id = currentRole
         let data = {}
@@ -40,6 +39,11 @@ const ManageAccount = () => {
 
     const handleOnchangeSearchValue = (event) => {
         setSearchValue(event.target.value)
+        setPage(1)
+    }
+
+    const handleSetRole = (role_id) => {
+        setCurrentRole(role_id)
         setPage(1)
     }
 
@@ -103,13 +107,13 @@ const ManageAccount = () => {
             <div className="manage-account-container">
                 <div className="manage-account-top">
                     <div className="choose-role">
-                        <div className={currentRole == 1 ? "role active" : "role"} onClick={() => { setCurrentRole(1) }}>
+                        <div className={currentRole == 1 ? "role active" : "role"} onClick={() => { handleSetRole(1) }}>
                             Student
                         </div>
-                        <div className={currentRole == 2 ? "role active" : "role"} onClick={() => { setCurrentRole(2) }}>
+                        <div className={currentRole == 2 ? "role active" : "role"} onClick={() => { handleSetRole(2) }}>
                             Teacher
                         </div>
-                        <div className={currentRole == 3 ? "role active" : "role"} onClick={() => { setCurrentRole(3) }}>
+                        <div className={currentRole == 3 ? "role active" : "role"} onClick={() => { handleSetRole(3) }}>
                             Admin
                         </div>
                     </div>
