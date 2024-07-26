@@ -27,7 +27,13 @@ const Navbar = () => {
             <div className="navbar_midlle">
                 <Link to='/'>Home</Link>
                 <Link to='/introduction'>Introduction</Link>
-                <Link to='/learning'>Learning</Link>
+                {user?.role === 'Student' &&
+                    <Link to='/learning'>Learning</Link>
+                }
+                {
+                    user?.role === 'Instructor' &&
+                    <Link to='/teaching'>Teaching</Link>
+                }
             </div>
 
             <div className="navbar_right">

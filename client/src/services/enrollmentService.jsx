@@ -65,4 +65,79 @@ const getTeacherForStudentManageService = async (subject_id, semester_id) => {
     }
 }
 
-export { createEnrollmentService, getEnrollmentForStudentService, getTeacherForStudentManageService }
+const getSubjectForTeacherService = async (user_id, semester_id) => {
+    try {
+        let response = await axios.get(`/getEnrollmentForTeacher?user_id=${user_id}&semester_id=${semester_id}`)
+        let data = []
+        response.DT.map((item, index) => {
+            data.push(item.Subject)
+        })
+        return data
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const getStudentForTeacherService = async (subject_id, semester_id) => {
+    try {
+        let response = await axios.get(`getStudentForTeacher?subject_id=${subject_id}&semester_id=${semester_id}`)
+        let data = []
+
+        response.DT.map((item, index) => {
+            let studentEmail = item.User.email
+            let studentFirst_name = item.User.first_name
+            let studentLast_name = item.User.last_name
+            let studentId = item.User.id
+            let completed = item.completed
+            let id = item.id
+            let score = item.score
+            let role = item.User.Role.name
+
+            let attendance = JSON.parse(item.attendance)
+            if (attendance) {
+                let entriesArray = Object.entries(attendance);
+                attendance = entriesArray
+            }
+
+            data.push({ studentEmail, studentFirst_name, studentLast_name, studentId, attendance, completed, id, score, role })
+        })
+        let newData = data.filter((item) => item.role !== 'Instructor')
+
+        return newData;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const giveScoreService = async (user_id, subject_id, semester_id, score) => {
+    try {
+        let response = await axios.put('/scoreEnrollment', { user_id, subject_id, semester_id, score })
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const updateAttendanceEnrollmentService = async (user_id, subject_id, semester_id, day, isAttendance) => {
+    try {
+        let response = await axios.put('/attendanceEnrollment', { user_id, subject_id, semester_id, day, isAttendance })
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {
+    createEnrollmentService, getEnrollmentForStudentService, getTeacherForStudentManageService,
+    getSubjectForTeacherService, getStudentForTeacherService, giveScoreService,
+    updateAttendanceEnrollmentService
+}

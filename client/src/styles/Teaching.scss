@@ -1,0 +1,169 @@
+@import './breakpoint.scss';
+
+.teaching-container {
+    min-height: 75vh;
+    background-color: #ecf0f1;
+    display: flex;
+
+    .learning-left {
+        width: 12%;
+        border-right: 3px solid #7f8c8d;
+        display: flex;
+        margin-left: 15px;
+        flex-direction: column;
+        justify-content: center;
+
+        .subject-select {
+            margin: 15px 0;
+            outline: 2px solid #7f8c8d;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+
+            .subject-id {
+                font-size: 15px;
+                font-weight: 500;
+
+                @include lg {
+                    font-size: 10px;
+                    font-weight: 500;
+                }
+
+                @include md {
+                    font-size: 8px;
+                    font-weight: 500;
+                }
+            }
+
+            .subject-name {
+                font-size: 18px;
+                font-weight: 700;
+
+                @include lg {
+                    font-size: 13px;
+                    font-weight: 500;
+                }
+
+                @include md {
+                    font-size: 10px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .active {
+            background-color: #f1eedc;
+        }
+
+    }
+
+    .learning-right {
+        width: 88%;
+        display: flex;
+        flex-direction: column;
+        background-color: #f1eedc;
+
+        .student-container {
+            display: flex;
+            flex-direction: column;
+
+            .student-title {
+                display: flex;
+                font-weight: 700;
+                font-size: 17px;
+                background-color: #f39c12;
+                margin: 10px 50px;
+                padding: 6px 0;
+
+                .email {
+                    @include xxl {
+                        display: none;
+                    }
+                }
+
+                @include md {
+                    font-size: 13px;
+                }
+
+                @include mm {
+                    font-size: 10px;
+                }
+            }
+
+            .detail-student {
+                display: flex;
+                font-size: 17px;
+                background-color: #bdc3c7;
+                margin: 10px 50px;
+                padding: 6px 0;
+
+                @include xxl {
+                    font-size: 13px;
+                }
+
+                @include md {
+                    font-size: 10px;
+                }
+
+                @include mm {
+                    font-size: 8px;
+                }
+
+                &:hover {
+                    background-color: #95a5a6;
+                }
+
+                .email {
+                    @include xxl {
+                        display: none;
+                    }
+                }
+
+                button {
+                    padding: 2px 10px;
+                    border: none;
+                    background-color: #2c3e50;
+                    border-radius: 5px;
+                    color: white;
+                    margin-left: 10px;
+
+                    @include md {
+                        margin-left: 5px;
+                    }
+
+                    &:hover {
+                        background-color: #34495e;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.attendance {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 10px;
+
+    @include lg {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .appearance {
+        color: #16a085;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .absent {
+        color: #c0392b;
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+}
+
+.check-attendance {
+    display: flex;
+    gap: 10px;
+}

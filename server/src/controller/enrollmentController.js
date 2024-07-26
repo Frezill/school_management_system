@@ -276,4 +276,72 @@ const getEnrollmentByStudentId = async (req, res) => {
     }
 }
 
-module.exports = { postCreateEnrollment, putUpdateScore, putUpdateAttendance, getEnrollment, deleteEnrollment, getEnrollmentByStudentId }
+const getEnrollmentForTeacher = async (req, res) => {
+    try {
+        let { user_id, semester_id } = req.query
+        let data = await Enrollment.findAll({
+            where: { user_id, semester_id },
+            attributes: ['id'],
+            include: [
+                {
+                    model: Subject,
+                    attributes: ['id', 'name']
+                }
+            ]
+        })
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get subject for teacher successful',
+            DT: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+const getStudentForTeacher = async (req, res) => {
+    try {
+        let { subject_id, semester_id } = req.query
+        let data = await Enrollment.findAll({
+            where: { subject_id, semester_id },
+            attributes: ['id', 'score', 'attendance', 'completed'],
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'last_name', 'first_name', 'email'],
+                    include: {
+                        model: Role,
+                        attributes: ['id', 'name']
+                    }
+                },
+            ]
+        })
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get student for teacher successful',
+            DT: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+module.exports = {
+    postCreateEnrollment, putUpdateScore, putUpdateAttendance,
+    getEnrollment, deleteEnrollment, getEnrollmentByStudentId,
+    getEnrollmentForTeacher, getStudentForTeacher
+}
