@@ -10,7 +10,7 @@ const postCreateEnrollment = async (req, res) => {
     try {
 
         let { user_id, subject_id, semester_id } = req.body
-        if (!user_id || !subject_id || !semester_id) {
+        if (!user_id || !subject_id || !semester_id || semester_id == '0') {
             return res.status(200).json({
                 EC: 3,
                 EM: 'Please enter all necessary information',
@@ -28,7 +28,7 @@ const postCreateEnrollment = async (req, res) => {
         }
 
         await Enrollment.create(req.body)
-        return res.status(201).json({
+        return res.status(200).json({
             EC: 0,
             EM: 'Create enrollment successful',
             DT: ''

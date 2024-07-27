@@ -14,6 +14,7 @@ import StudentManage from './pages/StudentManage';
 import Tuition from './pages/Tuition';
 import Teaching from './pages/Teaching';
 import ManageAccount from './pages/ManageAccount';
+import ManageTuition from './pages/ManageTuition';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/tuition' element={<Tuition />} />
         <Route path='/teaching' element={<Teaching />} />
         <Route path='/manageAccount' element={<ManageAccount />}></Route>
+        <Route path='/manageTuition' element={<ManageTuition />} />
       </Routes>
 
       <Footer />

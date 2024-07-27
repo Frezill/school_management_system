@@ -36,7 +36,10 @@ const Navbar = () => {
                 }
                 {
                     user?.role === 'Admin' &&
-                    <Link to='/manageAccount'>Manage Account</Link>
+                    <>
+                        <Link to='/manageAccount'>Manage Account</Link>
+                        <Link to='/manageTuition'>Manage Tuition</Link>
+                    </>
                 }
             </div>
 

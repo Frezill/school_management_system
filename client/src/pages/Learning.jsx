@@ -69,7 +69,7 @@ const Learning = () => {
                 <div className="semester-content">
                     <Form.Group className='mb-3' >
                         <Form.Select aria-label="" name='major_id' onChange={(event) => { setSemesterId(event.target.value) }}>
-                            <option>Select your semester</option>
+                            <option value='0'>Select your semester</option>
                             {
                                 semesterList &&
                                 semesterList.map((item, index) => (

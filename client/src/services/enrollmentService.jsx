@@ -5,9 +5,9 @@ const createEnrollmentService = async (user_id, semester_id, subject_id) => {
     try {
         let response = await axios.post('/enrollment', { user_id, semester_id, subject_id })
         let student_id = user_id;
-        await axios.post('/tuition', { student_id, semester_id, subject_id })
         if (response.EC === 0) {
             toast.success(response.EM)
+            await axios.post('/tuition', { student_id, semester_id, subject_id })
         } else {
             toast.error(response.EM)
         }

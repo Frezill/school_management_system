@@ -95,7 +95,7 @@ const Tuition = () => {
                         <a><strong>Total tuition: </strong>{tuitionData?.total_tuition ? `${tuitionData?.total_tuition} $` : '0 $'}</a>
                         <a><strong>Exemption: </strong>{tuitionData?.exemption ? tuitionData?.exemption : '0'}</a>
                         <a><strong>Must pay: </strong>{tuitionData?.last_tuition ? `${tuitionData?.last_tuition} $` : '0 $'}</a>
-                        <a><strong>Due date: </strong>{tuitionData?.due_date ? tuitionData?.due_date : ''}</a>
+                        <a><strong>Due date: </strong>{tuitionData?.due_date ? tuitionData?.due_date.split('T')[0] : ''}</a>
                     </div>
                     {
                         tuitionData && tuitionData.paid &&
