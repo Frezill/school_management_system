@@ -1,5 +1,5 @@
 const db = require('../models/index.js')
-
+const { Op } = require("sequelize");
 const Major = db.Major
 
 const postCreateMajor = async (req, res) => {
@@ -30,7 +30,23 @@ const postCreateMajor = async (req, res) => {
 
 const getMajor = async (req, res) => {
     try {
-        let response = await Major.findAll({ attributes: ['id', 'name', 'year'] });
+        let { searchValue } = req.query
+        let response = []
+        if (searchValue) {
+            response = await Major.findAll({
+                where: {
+                    [Op.or]:
+                        [
+                            { name: { [Op.like]: '%' + searchValue + '%' } },
+                            { year: { [Op.like]: '%' + searchValue + '%' } },
+                        ]
+                },
+                attributes: ['id', 'name', 'year']
+            });
+        } else {
+            response = await Major.findAll({ attributes: ['id', 'name', 'year'] });
+        }
+
         return res.status(201).json({
             EC: 0,
             EM: 'Get major successful',
