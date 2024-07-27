@@ -1,17 +1,17 @@
 @import './breakpoint.scss';
 
-.manage-tuition-container {
-    min-height: 75vh;
-    background-color: #ecf0f1;
+.manage-subject-container {
     display: flex;
     flex-direction: column;
 
+
     .top-content {
-        margin: 50px 100px;
+        margin: 50px 0;
         display: flex;
 
         @include md {
-            margin: 50px 50px;
+            margin: 50px 0;
+            flex-direction: column;
         }
 
         .search-content {
@@ -48,8 +48,21 @@
             }
         }
 
-        .semester-content {
+        .create-button {
             margin-left: 600px;
+
+            button {
+                padding: 3px 10px;
+                border-radius: 5px;
+                background-color: #192a56;
+                color: white;
+                font-size: 18px;
+                font-weight: 500;
+
+                &:hover {
+                    background-color: #142d6d;
+                }
+            }
 
             @include lg {
                 margin-left: 360px;
@@ -63,17 +76,18 @@
 
     }
 
-    .subject-content {
+
+
+    .manage-subject-content {
         display: flex;
         flex-direction: column;
-        margin: 0 50px;
 
         .subject-title {
             display: flex;
             font-weight: 700;
             font-size: 17px;
             background-color: #f39c12;
-            margin: 10px 50px;
+            margin: 10px 0;
             padding: 6px 0;
 
             @include mm {
@@ -85,7 +99,7 @@
             display: flex;
             font-size: 17px;
             background-color: #bdc3c7;
-            margin: 10px 50px;
+            margin: 10px 0;
             padding: 6px 0;
 
             @include mm {
@@ -104,7 +118,16 @@
                 color: white;
 
                 &:hover {
-                    background-color: #34495e;
+                    background-color: #38516b;
+                }
+            }
+
+            .danger {
+                background-color: #a5270b;
+                margin-left: 5px;
+
+                &:hover {
+                    background-color: #cf1d1d;
                 }
             }
         }

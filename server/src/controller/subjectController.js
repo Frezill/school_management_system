@@ -2,6 +2,7 @@ const db = require('../models/index.js')
 const { Op } = require("sequelize")
 
 const Subject = db.Subject
+const Enrollment = db.Enrollment
 
 const postCreateSubject = async (req, res) => {
     try {
@@ -14,7 +15,7 @@ const postCreateSubject = async (req, res) => {
             })
         }
 
-        let subjectExisted = await Subject.findOne({ id })
+        let subjectExisted = await Subject.findOne({ where: { id } })
         if (subjectExisted) {
             return res.status(200).json({
                 EC: 3,
@@ -24,7 +25,7 @@ const postCreateSubject = async (req, res) => {
         }
 
         await Subject.create(req.body)
-        return res.status(201).json({
+        return res.status(200).json({
             EC: 0,
             EM: 'Create subject successful',
             DT: ''
@@ -159,6 +160,7 @@ const deleteSubject = async (req, res) => {
             })
         }
 
+        await Enrollment.destroy({ where: { subject_id: id } })
         await Subject.destroy({ where: { id } })
         return res.status(200).json({
             EC: 0,

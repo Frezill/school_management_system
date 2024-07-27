@@ -63,6 +63,10 @@
         gap: 30px;
         margin: 0 100px;
 
+        @include lg {
+            margin: 0 50px;
+        }
+
         .search-content {
             position: relative;
             margin-top: 50px;
