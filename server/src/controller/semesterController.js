@@ -1,6 +1,7 @@
 const db = require('../models/index.js')
 
 let Semester = db.Semester
+let Enrollment = db.Enrollment
 
 const postCreateSemester = async (req, res) => {
     try {
@@ -132,6 +133,7 @@ const deleteSemester = async (req, res) => {
         }
 
         await Semester.destroy({ where: { id } })
+        await Enrollment.destroy({ where: { semester_id: id } })
         return res.status(200).json({
             EC: 0,
             EM: 'Delete semester successful',

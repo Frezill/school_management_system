@@ -47,5 +47,146 @@
         @include md {
             margin: 50px 20px;
         }
+
+        .manage-topic-container {
+            display: flex;
+            flex-direction: column;
+
+
+            .top-content {
+                margin: 50px 0;
+                display: flex;
+
+                @include md {
+                    margin: 50px 0;
+                    flex-direction: column;
+                }
+
+                .search-content {
+                    position: relative;
+
+                    input {
+                        width: 500px;
+                        padding: 5px;
+                        border-radius: 5px;
+                        position: absolute;
+
+                        @include lg {
+                            width: 350px;
+                        }
+
+                        @include md {
+                            width: 200px;
+                        }
+                    }
+
+                    .search-icon {
+                        position: absolute;
+                        font-size: 20px;
+                        margin-left: 470px;
+                        cursor: pointer;
+
+                        @include lg {
+                            margin-left: 320px;
+                        }
+
+                        @include md {
+                            margin-left: 170px;
+                        }
+                    }
+                }
+
+                .create-button {
+                    margin-left: 600px;
+
+                    button {
+                        padding: 3px 10px;
+                        border-radius: 5px;
+                        background-color: #192a56;
+                        color: white;
+                        font-size: 18px;
+                        font-weight: 500;
+
+                        &:hover {
+                            background-color: #142d6d;
+                        }
+                    }
+
+                    @include lg {
+                        margin-left: 360px;
+                    }
+
+                    @include md {
+                        margin-left: 220px;
+                    }
+                }
+
+
+            }
+
+
+
+            .manage-topic-content {
+                display: flex;
+                flex-direction: column;
+
+                .topic-title {
+                    display: flex;
+                    font-weight: 700;
+                    font-size: 17px;
+                    background-color: #f39c12;
+                    margin: 10px 0;
+                    padding: 6px 0;
+
+                    @include mm {
+                        font-size: 13px;
+                    }
+                }
+
+                .detail-topic {
+                    display: flex;
+                    font-size: 17px;
+                    background-color: #bdc3c7;
+                    margin: 10px 0;
+                    padding: 6px 0;
+
+                    @include mm {
+                        font-size: 13px;
+                    }
+
+                    &:hover {
+                        background-color: #95a5a6;
+                    }
+
+                    button {
+                        padding: 2px 10px;
+                        border: none;
+                        background-color: #2c3e50;
+                        border-radius: 5px;
+                        color: white;
+
+                        &:hover {
+                            background-color: #38516b;
+                        }
+                    }
+
+                    .danger {
+                        background-color: #a5270b;
+                        margin-left: 5px;
+
+                        &:hover {
+                            background-color: #cf1d1d;
+                        }
+                    }
+                }
+            }
+
+            .paginate {
+                margin: 40px 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
     }
 }

@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { createSubjectService, deleteSubjectService, getSubjectService, searchSubjectService, updateSubjectService } from '../services/subjectService'
-import '../styles/ManageSubject.scss'
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import ReactPaginate from 'react-paginate';
-import { getSemesterService } from '../services/semesterService';
 import { Form, Button, Modal, Row, Col } from 'react-bootstrap';
-import { useSelector, useDispatch } from "react-redux";
-import { createEnrollmentService } from '../services/enrollmentService';
 
 
 const ManageSubject = () => {
@@ -16,7 +12,6 @@ const ManageSubject = () => {
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(100);
     const [searchValue, setSearchValue] = useState('')
-    const [semesterId, setSemesterId] = useState('')
     const [modalData, setModalData] = useState({
         id: '',
         name: '',
@@ -28,8 +23,6 @@ const ManageSubject = () => {
     const [modalType, setModalType] = useState('')
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteSubjectData, setDeleteSubjectData] = useState({})
-
-    const user = useSelector((state) => state.user);
 
     const getSubjecList = async () => {
         let limit = 5;
@@ -51,13 +44,6 @@ const ManageSubject = () => {
     const handleOnchangeSearchValue = (event) => {
         setSearchValue(event.target.value)
         setPage(1)
-    }
-
-    const handleEnrollButton = async (item) => {
-        let user_id = user?.id;
-        let semester_id = semesterId
-        let subject_id = item.id
-        await createEnrollmentService(user_id, semester_id, subject_id)
     }
 
     const handleShowModal = (item) => {
@@ -123,18 +109,18 @@ const ManageSubject = () => {
 
     return (
         <>
-            <div className="manage-subject-container">
+            <div className="manage-topic-container">
                 <div className="top-content">
                     <div className="search-content">
-                        <input type="text" placeholder='Search subject by id or name' onChange={handleOnchangeSearchValue} />
+                        <input type="text" placeholder='Search by id or name' onChange={handleOnchangeSearchValue} />
                         <i className='search-icon'><FaMagnifyingGlass /></i>
                     </div>
                     <div className="create-button">
                         <button onClick={() => { handleShowModal() }}>Create&nbsp;subject</button>
                     </div>
                 </div>
-                <div className="manage-subject-content">
-                    <div className="subject-title d-flex flex-wrap justify-content-between">
+                <div className="manage-topic-content">
+                    <div className="topic-title d-flex flex-wrap justify-content-between">
                         <div className="col-sm-1"></div>
                         <div className="col-sm-1 col-lg-1">ID</div>
                         <div className="col-sm-4 col-lg-4">Name</div>
@@ -146,7 +132,7 @@ const ManageSubject = () => {
                     {
                         subjectList &&
                         subjectList.map((item, index) => (
-                            <div className="detail-subject d-flex flex-wrap justify-content-between" key={`subject - ${index}`}>
+                            <div className="detail-topic d-flex flex-wrap justify-content-between" key={`topic - ${index}`}>
                                 <div className="col-sm-1"></div>
                                 <div className="col-sm-1 col-lg-1">
                                     {item.id}
