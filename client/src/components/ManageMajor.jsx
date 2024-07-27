@@ -94,7 +94,7 @@ const ManageMajor = () => {
                         <i className='search-icon'><FaMagnifyingGlass /></i>
                     </div>
                     <div className="create-button">
-                        <button onClick={() => { handleShowModal() }}>Create&nbsp;subject</button>
+                        <button onClick={() => { handleShowModal() }}>Create&nbsp;major</button>
                     </div>
                 </div>
                 <div className="manage-topic-content">

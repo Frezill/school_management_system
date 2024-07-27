@@ -14,12 +14,11 @@ const ManageSemester = () => {
     const [modalType, setModalType] = useState('')
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteSemesterData, setDeleteSemesterData] = useState({})
+    const [searchValue, setSearchValue] = useState('')
 
     const fetchSemester = async () => {
-        let response = await getSemesterService()
+        let response = await getSemesterService(searchValue)
         setSemesterList(response.DT)
-
-
     }
 
     const handleShowModal = (item) => {
@@ -80,7 +79,7 @@ const ManageSemester = () => {
 
     useEffect(() => {
         fetchSemester()
-    }, [showModal, showDeleteModal])
+    }, [showModal, showDeleteModal, searchValue])
 
 
     return (
@@ -88,11 +87,11 @@ const ManageSemester = () => {
             <div className="manage-topic-container">
                 <div className="top-content">
                     <div className="search-content">
-                        <input type="text" placeholder='Search by id or name' />
+                        <input type="text" placeholder='Search by name (semester year-year)' onChange={(event) => { setSearchValue(event.target.value) }} />
                         <i className='search-icon'><FaMagnifyingGlass /></i>
                     </div>
                     <div className="create-button">
-                        <button onClick={() => { handleShowModal() }}>Create&nbsp;subject</button>
+                        <button onClick={() => { handleShowModal() }}>Create&nbsp;semester</button>
                     </div>
                 </div>
                 <div className="manage-topic-content">

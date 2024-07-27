@@ -1,4 +1,5 @@
 const db = require('../models/index.js')
+const { Op } = require("sequelize");
 
 let Semester = db.Semester
 let Enrollment = db.Enrollment
@@ -31,7 +32,19 @@ const postCreateSemester = async (req, res) => {
 
 const getSemester = async (req, res) => {
     try {
-        let response = await Semester.findAll({ attributes: ['id', 'semester'] });
+        let { searchValue } = req.query
+
+        let response = []
+        if (searchValue) {
+            response = await Semester.findAll({
+                where: {
+                    semester: { [Op.like]: '%' + searchValue + '%' }
+                },
+                attributes: ['id', 'semester']
+            });
+        } else {
+            response = await Semester.findAll({ attributes: ['id', 'semester'] });
+        }
         return res.status(200).json({
             EC: 0,
             EM: 'Get semester successful',
