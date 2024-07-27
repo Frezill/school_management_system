@@ -116,4 +116,12 @@ const updateUserService = async (data) => {
     }
 }
 
-export { registerNewUserService, loginUserService, getUserByIdService, getUserService, searchUserService, deleteUserService, updateUserService }
+const getAllTeacherService = async () => {
+    return axios.get('getAllTeacher')
+}
+
+export {
+    registerNewUserService, loginUserService, getUserByIdService,
+    getUserService, searchUserService, deleteUserService,
+    updateUserService, getAllTeacherService
+}

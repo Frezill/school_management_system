@@ -1,4 +1,5 @@
 const db = require('../models/index.js')
+const { Op } = require("sequelize")
 
 const Enrollment = db.Enrollment
 const User = db.User
@@ -340,8 +341,159 @@ const getStudentForTeacher = async (req, res) => {
     }
 }
 
+const getTeacherForAssign = async (req, res) => {
+    try {
+        let { searchValue, semester_id, limit, page } = req.query
+        let offset = limit * (page - 1)
+        limit = +limit
+        let data = {}
+        if (searchValue) {
+            let { count, rows } = await Enrollment.findAndCountAll({
+                limit,
+                offset,
+                where: {
+                    semester_id,
+                    '$User.Role.name$': 'Instructor',
+                    [Op.or]: [
+                        { '$User.first_name$': { [Op.like]: '%' + searchValue + '%' } },
+                        { '$User.last_name$': { [Op.like]: '%' + searchValue + '%' } },
+                        { '$User.id$': { [Op.like]: '%' + searchValue + '%' } },
+                        { '$Subject.id$': { [Op.like]: '%' + searchValue + '%' } },
+                        { '$Subject.name$': { [Op.like]: '%' + searchValue + '%' } }
+                    ]
+                },
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'first_name', 'last_name', 'email'],
+                        include: {
+                            model: Role,
+                            attributes: ['id', 'name']
+                        }
+                    },
+                    {
+                        model: Subject,
+                        attributes: ['id', 'name']
+                    }
+                ]
+            })
+            let totalPages = Math.ceil(count / limit) //round
+
+            data = {
+                totalRows: count,
+                totalPages: totalPages,
+                data: rows
+            }
+        } else {
+            let { count, rows } = await Enrollment.findAndCountAll({
+                limit,
+                offset,
+                where: {
+                    semester_id,
+                    '$User.Role.name$': 'Instructor'
+                },
+                include: [
+                    {
+                        model: User,
+                        attributes: ['id', 'first_name', 'last_name', 'email'],
+                        include: {
+                            model: Role,
+                            attributes: ['id', 'name']
+                        }
+                    },
+                    {
+                        model: Subject,
+                        attributes: ['id', 'name']
+                    }
+                ]
+            })
+            let totalPages = Math.ceil(count / limit) //round
+
+            data = {
+                totalRows: count,
+                totalPages: totalPages,
+                data: rows
+            }
+        }
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get student for teacher successful',
+            DT: data
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+const postCreateAssign = async (req, res) => {
+    try {
+
+        let { user_id, subject_id, semester_id } = req.body
+        if (!user_id || !subject_id || !semester_id) {
+            return res.status(200).json({
+                EC: 3,
+                EM: 'Please enter all necessary information',
+                DT: ''
+            })
+        }
+
+        let enrollmentExisted = await Enrollment.findOne({ where: { user_id, subject_id, semester_id } })
+        if (enrollmentExisted) {
+            return res.status(200).json({
+                EC: 1,
+                EM: 'You already assign this subject to teacher',
+                DT: ''
+            })
+        }
+
+        let checkDoubleTeacher = await Enrollment.findOne({
+            where: {
+                subject_id,
+                semester_id,
+                '$User.Role.id$': 2
+            },
+            include: {
+                model: User,
+                attributes: ['id', 'first_name', 'role_id'],
+                include: {
+                    model: Role,
+                    attributes: ['id', 'name']
+                }
+            }
+        })
+        if (checkDoubleTeacher) {
+            return res.status(200).json({
+                EC: 1,
+                EM: 'This subject had teacher',
+                DT: ''
+            })
+        }
+
+        await Enrollment.create(req.body)
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Create Assign successful',
+            DT: ''
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
 module.exports = {
     postCreateEnrollment, putUpdateScore, putUpdateAttendance,
     getEnrollment, deleteEnrollment, getEnrollmentByStudentId,
-    getEnrollmentForTeacher, getStudentForTeacher
+    getEnrollmentForTeacher, getStudentForTeacher, getTeacherForAssign,
+    postCreateAssign
 }

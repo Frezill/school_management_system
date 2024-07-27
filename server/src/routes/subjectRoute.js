@@ -1,6 +1,7 @@
 const express = require('express')
 const { postCreateSubject, getSubject, putUpdateSubject,
-    deleteSubject, getSubjectById, searchSubjectController } = require('../controller/subjectController.js')
+    deleteSubject, getSubjectById, searchSubjectController,
+    getAllSubject } = require('../controller/subjectController.js')
 const { checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod } = require('../middleware/authentication.js')
 
 const router = express.Router()
@@ -13,7 +14,7 @@ const initSubjectRoute = (app) => {
     router.put('/subject', checkUserJWT, isAdmin, putUpdateSubject)
     router.delete('/subject', checkUserJWT, isAdmin, deleteSubject)
     router.get('/searchSubject', searchSubjectController)
-
+    router.get('/getAllSubject', checkUserJWT, getAllSubject)
 
     return app.use('/api/v1', router);
 }

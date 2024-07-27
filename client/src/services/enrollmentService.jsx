@@ -136,8 +136,54 @@ const updateAttendanceEnrollmentService = async (user_id, subject_id, semester_i
     }
 }
 
+const getTeacherAssign = async (searchValue, semester_id, page, limit) => {
+    let response = await axios.get(`assignTeacher?semester_id=${semester_id}&searchValue=${searchValue}&limit=${limit}&page=${page}`)
+
+    let data = []
+
+    response.DT.data.map((item, index) => {
+        let teacher_id = item.User.id
+        let teacher_name = item.User.first_name + ' ' + item.User.last_name
+        let subject_id = item.Subject.id
+        let subject_name = item.Subject.name
+
+        data.push({ teacher_id, teacher_name, subject_id, subject_name })
+    })
+
+    response.DT.data = data
+
+    return response;
+}
+
+const createAssignService = async (user_id, semester_id, subject_id) => {
+    try {
+        let response = await axios.post('/assignTeacher', { user_id, semester_id, subject_id })
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const deleteEnrollmentService = async (user_id, semester_id, subject_id) => {
+    try {
+        let response = await axios.delete(`/enrollment?user_id=${user_id}&subject_id=${subject_id}&semester_id=${semester_id}`)
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export {
     createEnrollmentService, getEnrollmentForStudentService, getTeacherForStudentManageService,
     getSubjectForTeacherService, getStudentForTeacherService, giveScoreService,
-    updateAttendanceEnrollmentService
+    updateAttendanceEnrollmentService, getTeacherAssign, createAssignService,
+    deleteEnrollmentService
 }

@@ -48,4 +48,8 @@ const deleteSubjectService = async (id) => {
     }
 }
 
-export { getSubjectService, searchSubjectService, createSubjectService, updateSubjectService, deleteSubjectService }
+const getAllSubjectService = async () => {
+    return axios.get('/getAllSubject')
+}
+
+export { getSubjectService, searchSubjectService, createSubjectService, updateSubjectService, deleteSubjectService, getAllSubjectService }

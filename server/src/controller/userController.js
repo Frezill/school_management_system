@@ -235,4 +235,35 @@ const searchUser = async (req, res) => {
     }
 }
 
-module.exports = { getUser, getUserById, updateUser, deleteUser, searchUser }
+const getAllTeacher = async (req, res) => {
+    try {
+        let data = await User.findAll(
+            {
+                where: {
+                    role_id: 2
+                },
+                attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'address', 'dob', 'profileImage'],
+                include: [{
+                    model: db.Role,
+                    attributes: ['id', 'name', 'description']
+                }],
+            }
+        )
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get user data successfull',
+            DT: data
+        })
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+module.exports = { getUser, getUserById, updateUser, deleteUser, searchUser, getAllTeacher }

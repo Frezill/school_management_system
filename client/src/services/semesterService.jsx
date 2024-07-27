@@ -1,7 +1,8 @@
 import { toast } from 'react-toastify';
 import axios from '../setup/axios.jsx'
 
-const getSemesterService = async (searchValue) => {
+const getSemesterService = async (search_value) => {
+    let searchValue = search_value || ' '
     return await axios.get(`/semester?searchValue=${searchValue}`)
 }
 

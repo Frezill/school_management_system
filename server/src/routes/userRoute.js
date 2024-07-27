@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
 const { registerNewUser, loginUser, logoutUser } = require('../controller/login-registerController')
-const { getUser, getUserById, updateUser, deleteUser, searchUser } = require('../controller/userController')
+const { getUser, getUserById, updateUser, deleteUser, searchUser, getAllTeacher } = require('../controller/userController')
 const { checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod } = require('../middleware/authentication.js')
 
 const router = express.Router()
@@ -28,6 +28,7 @@ const initUserRoutes = (app) => {
     router.put('/user', checkUserJWT, upload.single('profileImage'), updateUser)
     router.delete('/user', checkUserJWT, isAdmin, deleteUser)
     router.get('/searchUser', checkUserJWT, isAdmin, searchUser)
+    router.get('/getAllTeacher', checkUserJWT, getAllTeacher)
 
     return app.use('/api/v1', router);
 }

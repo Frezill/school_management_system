@@ -3,7 +3,9 @@ const { postCreateEnrollment, putUpdateScore, putUpdateAttendance,
     getEnrollment, deleteEnrollment,
     getEnrollmentByStudentId,
     getEnrollmentForTeacher,
-    getStudentForTeacher } = require('../controller/enrollmentController');
+    getStudentForTeacher,
+    getTeacherForAssign,
+    postCreateAssign } = require('../controller/enrollmentController');
 
 const { checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod } = require('../middleware/authentication.js')
 
@@ -19,6 +21,9 @@ const initEnrollmentRoute = (app) => {
     router.get('/enrollmentByStudentID', checkUserJWT, getEnrollmentByStudentId)
     router.get('/getEnrollmentForTeacher', checkUserJWT, isTeacher, getEnrollmentForTeacher)
     router.get('/getStudentForTeacher', checkUserJWT, isTeacher, getStudentForTeacher)
+
+    router.get('/assignTeacher', checkUserJWT, getTeacherForAssign)
+    router.post('/assignTeacher', checkUserJWT, postCreateAssign)
 
     return app.use('/api/v1', router);
 }

@@ -220,5 +220,27 @@ const searchSubjectController = async (req, res) => {
     }
 }
 
+const getAllSubject = async (req, res) => {
+    try {
 
-module.exports = { postCreateSubject, getSubject, getSubjectById, putUpdateSubject, deleteSubject, searchSubjectController }
+        let data = await Subject.findAll({
+            attributes: ['id', 'name', 'tuition', 'number_of_credits', 'description']
+        });
+
+        return res.status(200).json({
+            EC: 0,
+            EM: 'Get subject successful',
+            DT: data
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error in server',
+            DT: ''
+        })
+    }
+}
+
+
+module.exports = { postCreateSubject, getSubject, getSubjectById, putUpdateSubject, deleteSubject, searchSubjectController, getAllSubject }
