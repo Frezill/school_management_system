@@ -19,13 +19,13 @@ const upload = multer({ storage })
 
 const initUserRoutes = (app) => {
 
-    router.post('/register', upload.single('profileImage'), registerNewUser)
+    router.post('/register', isAdmin, upload.single('profileImage'), registerNewUser)
     router.post('/login', loginUser)
     router.post('/logout', checkUserJWT, logoutUser)
 
-    router.get('/user', checkUserJWT, isTeacher, getUser)
+    router.get('/user', checkUserJWT, getUser)
     router.get('/detailUser', checkUserJWT, getUserById)
-    router.put('/user', checkUserJWT, upload.single('profileImage'), updateUser)
+    router.put('/user', checkUserJWT, isAdmin, upload.single('profileImage'), updateUser)
     router.delete('/user', checkUserJWT, isAdmin, deleteUser)
     router.get('/searchUser', checkUserJWT, isAdmin, searchUser)
     router.get('/getAllTeacher', checkUserJWT, getAllTeacher)

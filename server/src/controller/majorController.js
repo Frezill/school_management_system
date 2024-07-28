@@ -1,6 +1,7 @@
 const db = require('../models/index.js')
 const { Op } = require("sequelize");
 const Major = db.Major
+const User = db.User
 
 const postCreateMajor = async (req, res) => {
     try {
@@ -119,6 +120,7 @@ const deleteMajor = async (req, res) => {
             })
         }
 
+        await User.destroy({ where: { major_id: id } })
         await Major.destroy({ where: { id } })
         return res.status(200).json({
             EC: 0,

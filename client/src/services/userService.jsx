@@ -105,6 +105,13 @@ const deleteUserService = async (user_id, role_id) => {
 
 const updateUserService = async (data) => {
     try {
+
+        let dateObj = new Date(data.dob);
+        if (isNaN(dateObj)) {
+            toast.error('Invalid birthday')
+            return;
+        }
+
         let response = await axios.put('/user', data)
         if (response.EC === 0) {
             toast.success(response.EM)

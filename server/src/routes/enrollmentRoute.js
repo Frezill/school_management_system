@@ -7,23 +7,23 @@ const { postCreateEnrollment, putUpdateScore, putUpdateAttendance,
     getTeacherForAssign,
     postCreateAssign } = require('../controller/enrollmentController');
 
-const { checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod } = require('../middleware/authentication.js')
+const { checkUserJWT, isStudent, isTeacher, isAdmin, isSubjectRegistrationPeriod, isActiveSemester } = require('../middleware/authentication.js')
 
 const router = express.Router()
 
 const initEnrollmentRoute = (app) => {
 
-    router.post('/enrollment', checkUserJWT, isSubjectRegistrationPeriod, postCreateEnrollment)
-    router.put('/scoreEnrollment', checkUserJWT, isTeacher, putUpdateScore)
-    router.put('/attendanceEnrollment', checkUserJWT, isTeacher, putUpdateAttendance)
+    router.post('/enrollment', checkUserJWT, isSubjectRegistrationPeriod, isActiveSemester, postCreateEnrollment)
+    router.put('/scoreEnrollment', checkUserJWT, isActiveSemester, isTeacher, putUpdateScore)
+    router.put('/attendanceEnrollment', checkUserJWT, isActiveSemester, isTeacher, putUpdateAttendance)
     router.get('/enrollment', checkUserJWT, getEnrollment)
-    router.delete('/enrollment', checkUserJWT, isSubjectRegistrationPeriod, deleteEnrollment)
-    router.get('/enrollmentByStudentID', checkUserJWT, getEnrollmentByStudentId)
+    router.delete('/enrollment', checkUserJWT, isActiveSemester, isSubjectRegistrationPeriod, deleteEnrollment)
+    router.get('/enrollmentByStudentID', checkUserJWT, isStudent, getEnrollmentByStudentId)
     router.get('/getEnrollmentForTeacher', checkUserJWT, isTeacher, getEnrollmentForTeacher)
     router.get('/getStudentForTeacher', checkUserJWT, isTeacher, getStudentForTeacher)
 
-    router.get('/assignTeacher', checkUserJWT, getTeacherForAssign)
-    router.post('/assignTeacher', checkUserJWT, postCreateAssign)
+    router.get('/assignTeacher', checkUserJWT, isAdmin, getTeacherForAssign)
+    router.post('/assignTeacher', checkUserJWT, isActiveSemester, isAdmin, postCreateAssign)
 
     return app.use('/api/v1', router);
 }

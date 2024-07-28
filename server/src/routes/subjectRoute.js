@@ -8,13 +8,13 @@ const router = express.Router()
 
 const initSubjectRoute = (app) => {
 
-    router.post('/subject', postCreateSubject)
-    router.get('/subject', getSubject)
+    router.post('/subject', checkUserJWT, isAdmin, postCreateSubject)
+    router.get('/subject', checkUserJWT, getSubject)
     router.get('/detailSubject', getSubjectById)
     router.put('/subject', checkUserJWT, isAdmin, putUpdateSubject)
     router.delete('/subject', checkUserJWT, isAdmin, deleteSubject)
-    router.get('/searchSubject', searchSubjectController)
-    router.get('/getAllSubject', checkUserJWT, getAllSubject)
+    router.get('/searchSubject', checkUserJWT, searchSubjectController)
+    router.get('/getAllSubject', checkUserJWT, isAdmin, getAllSubject)
 
     return app.use('/api/v1', router);
 }

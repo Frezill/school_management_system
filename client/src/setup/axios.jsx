@@ -39,12 +39,15 @@ instance.interceptors.response.use(function (response) {
         }
         //forbidden (pemission related issues)
         case 403: {
-            toast.error(`You don't have permission to access this resoure...`);
+            // toast.error(`You don't have permission to access this resoure...`);
             return error.response.data;
         }
         //not found
         case 404: {
-            toast.error(`This function is not available now`);
+            // toast.error(`This function is not available now`);
+            return error.response.data;
+        }
+        case 405: {
             return error.response.data;
         }
         //bad request

@@ -45,7 +45,6 @@ const Tuition = () => {
             <div className="tuition-top">
                 <Form.Group className='mb-3' >
                     <Form.Select aria-label="" name='major_id' onChange={(event) => { setSemesterId(event.target.value) }}>
-                        <option>Select your semester</option>
                         {
                             semesterList &&
                             semesterList.map((item, index) => (

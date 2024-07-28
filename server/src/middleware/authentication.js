@@ -55,8 +55,20 @@ const checkUserJWT = (req, res, next) => {
     }
 }
 
+const isStudent = (req, res, next) => {
+    if (req && req.user && (req.user.role === 'Student')) {
+        next()
+    } else {
+        return res.status(403).json({
+            EC: 4,
+            EM: `You don't have permission to access this resource!`,
+            DT: ''
+        })
+    }
+}
+
 const isTeacher = (req, res, next) => {
-    if (req && req.user && (req.user.role === 'Instructor' || req.user.role === 'Admin')) {
+    if (req && req.user && (req.user.role === 'Instructor')) {
         next()
     } else {
         return res.status(403).json({
@@ -126,4 +138,38 @@ const isPayTuitionPeriod = async (req, res, next) => {
     }
 }
 
-module.exports = { createJWT, checkUserJWT, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod }
+const Semester = db.Semester
+
+const isActiveSemester = async (req, res, next) => {
+    try {
+        if ((req && req.body && req.body.semester_id) || (req && req.query && req.query.semester_id)) {
+            let semester_id = req.body.semester_id || req.query.semester_id || req.body.semesterId || req.query.semesterId
+
+            let semester = await Semester.findOne({ where: { id: semester_id } })
+            if (!semester.isActive) {
+                return res.status(405).json({
+                    EC: 4,
+                    EM: `Semester ${semester.semester} not ready now`,
+                    DT: ''
+                })
+            } else {
+                next()
+            }
+        } else {
+            return res.status(403).json({
+                EC: 1,
+                EM: 'Not found data',
+                DT: ''
+            })
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            EC: 1,
+            EM: 'Error from server',
+            DT: ''
+        })
+    }
+}
+
+module.exports = { createJWT, checkUserJWT, isStudent, isTeacher, isAdmin, isSubjectRegistrationPeriod, isPayTuitionPeriod, isActiveSemester }
