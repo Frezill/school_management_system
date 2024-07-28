@@ -19,7 +19,7 @@ const upload = multer({ storage })
 
 const initUserRoutes = (app) => {
 
-    router.post('/register', isAdmin, upload.single('profileImage'), registerNewUser)
+    router.post('/register', checkUserJWT, isAdmin, upload.single('profileImage'), registerNewUser)
     router.post('/login', loginUser)
     router.post('/logout', checkUserJWT, logoutUser)
 

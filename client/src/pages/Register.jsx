@@ -38,7 +38,7 @@ const register = () => {
     }
 
     const getMajor = async () => {
-        let response = await getMajorService()
+        let response = await getMajorService('')
         if (response.EC === 0) {
             setMajor(response.DT)
         }
@@ -52,10 +52,8 @@ const register = () => {
     }
 
     const handleRegisterButton = async () => {
-        let response = await registerNewUserService(formData)
-        if (response) {
-            navigate('/login')
-        }
+        await registerNewUserService(formData)
+        navigate('/manageAccount')
     }
 
     useEffect(() => {
