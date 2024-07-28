@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/ManageAccount.scss'
+// import '../styles/ManageAccount.scss'
+import '../styles/ManageOverall.scss'
 import { useNavigate } from 'react-router-dom'
 import ReactPaginate from 'react-paginate';
 import { deleteUserService, getUserService, searchUserService, updateUserService } from '../services/userService';
@@ -104,80 +105,88 @@ const ManageAccount = () => {
 
     return (
         <>
-            <div className="manage-account-container">
-                <div className="manage-account-top">
-                    <div className="choose-role">
-                        <div className={currentRole == 1 ? "role active" : "role"} onClick={() => { handleSetRole(1) }}>
+            <div className="manage-overall-container">
+                <div className="manage-overall-top">
+                    <div className="choose-topic">
+                        <div className={currentRole == 1 ? "topic active" : "topic"} onClick={() => { handleSetRole(1) }}>
                             Student
                         </div>
-                        <div className={currentRole == 2 ? "role active" : "role"} onClick={() => { handleSetRole(2) }}>
+                        <div className={currentRole == 2 ? "topic active" : "topic"} onClick={() => { handleSetRole(2) }}>
                             Teacher
                         </div>
-                        <div className={currentRole == 3 ? "role active" : "role"} onClick={() => { handleSetRole(3) }}>
+                        <div className={currentRole == 3 ? "topic active" : "topic"} onClick={() => { handleSetRole(3) }}>
                             Admin
                         </div>
                     </div>
-                    <div className="register-button">
-                        <button onClick={() => { navigate('/register') }}>Register</button>
-                    </div>
                 </div>
-                <div className="manage-account-content">
-                    <div className="search-content">
-                        <input type="text" placeholder='Search by id, name or major' onChange={handleOnchangeSearchValue} />
-                        <i className='search-icon'><FaMagnifyingGlass /></i>
-                    </div>
-                    <div className="display-user-container">
-                        <div className="title">
-                            <div className="col-sm-1"></div>
-                            <div className="col-sm-1">ID</div>
-                            <div className="col-sm-2">Name</div>
-                            <div className="col-sm-3">Email</div>
-                            <div className="col-sm-3">Major</div>
-                            <div className="col-sm-1"></div>
-                            <div className="col-sm-1"></div>
-                            <div className="col-sm-1"></div>
+                <div className="manage-overall-bottom">
+                    <div className="manage-topic-container">
+                        <div className="top-content">
+                            <div className="search-content">
+                                <input type="text" placeholder='Search by id or name' onChange={handleOnchangeSearchValue} />
+                                <i className='search-icon'><FaMagnifyingGlass /></i>
+                            </div>
+                            <div className="create-button">
+                                <button onClick={() => { navigate('/register') }}>Register</button>
+                            </div>
                         </div>
+                        <div className="manage-topic-content">
+                            <div className="topic-title d-flex flex-wrap justify-content-between">
+                                <div className="col-sm-1"></div>
+                                <div className="col-sm-1 col-lg-1">ID</div>
+                                <div className="col-sm-2 col-lg-2">Name</div>
+                                <div className="col-sm-3 col-lg-3">Email</div>
+                                <div className="col-sm-3 col-lg-3">Major</div>
+                                <div className="col-sm-2 col-lg-2"></div>
+                                <div className="col-sm-1"></div>
+                            </div>
 
-                        {
-                            listUser &&
-                            listUser.map((item, index) => (
-                                <div className="detail-user" key={`user ${index}`}>
-                                    <div className="col-sm-1"></div>
-                                    <div className="col-sm-1">{item.id}</div>
-                                    <div className="col-sm-2">{item.first_name} {item.last_name}</div>
-                                    <div className="col-sm-3">{item.email}</div>
-                                    <div className="col-sm-3">{item.Major.name} {item.Major.year}</div>
-                                    <div className="col-sm-1"><button className='btn btn-primary' onClick={() => { handleShowUpdateModal(item) }}>Update</button></div>
-                                    <div className="col-sm-1"><button className='btn btn-danger' onClick={() => { handleShowDeleteModal(item) }}>Delete</button></div>
-                                    <div className="col-sm-1"></div>
-                                </div>
-                            ))
-                        }
-
-                        <div className='paginate'>
                             {
-                                totalPages > 0 &&
-                                <ReactPaginate
-                                    nextLabel="next >"
-                                    onPageChange={handlePageClick}
-                                    pageRangeDisplayed={2}
-                                    marginPagesDisplayed={3}
-                                    pageCount={totalPages}
-                                    previousLabel="< previous"
-                                    pageClassName="page-item"
-                                    pageLinkClassName="page-link"
-                                    previousClassName="page-item"
-                                    previousLinkClassName="page-link"
-                                    nextClassName="page-item"
-                                    nextLinkClassName="page-link"
-                                    breakLabel="..."
-                                    breakClassName="page-item"
-                                    breakLinkClassName="page-link"
-                                    containerClassName="pagination"
-                                    activeClassName="active"
-                                    renderOnZeroPageCount={null}
-                                />
+                                listUser &&
+                                listUser.map((item, index) => (
+                                    <div className="detail-topic d-flex flex-wrap justify-content-between" key={`user ${index}`}>
+                                        <div className="col-sm-1"></div>
+                                        <div className="col-sm-1 col-lg-1">{item.id}</div>
+                                        <div className="col-sm-2 col-lg-2">{item.first_name} {item.last_name}</div>
+                                        <div className="col-sm-3 col-lg-3">{item.email}</div>
+                                        <div className="col-sm-3 col-lg-3">{item.Major.name} {item.Major.year}</div>
+                                        <div className="col-sm-2 col-lg-2">
+                                            <div className="enroll">
+                                                <button onClick={() => { handleShowUpdateModal(item) }}>Update</button>
+                                                <button className='danger' onClick={() => { handleShowDeleteModal(item) }}>Delete</button>
+                                            </div>
+
+                                        </div >
+                                        <div className="col-sm-1"></div>
+                                    </div>
+                                ))
                             }
+
+                            <div className='paginate'>
+                                {
+                                    totalPages > 0 &&
+                                    <ReactPaginate
+                                        nextLabel="next >"
+                                        onPageChange={handlePageClick}
+                                        pageRangeDisplayed={2}
+                                        marginPagesDisplayed={3}
+                                        pageCount={totalPages}
+                                        previousLabel="< previous"
+                                        pageClassName="page-item"
+                                        pageLinkClassName="page-link"
+                                        previousClassName="page-item"
+                                        previousLinkClassName="page-link"
+                                        nextClassName="page-item"
+                                        nextLinkClassName="page-link"
+                                        breakLabel="..."
+                                        breakClassName="page-item"
+                                        breakLinkClassName="page-link"
+                                        containerClassName="pagination"
+                                        activeClassName="active"
+                                        renderOnZeroPageCount={null}
+                                    />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>

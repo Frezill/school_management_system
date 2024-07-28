@@ -17,6 +17,10 @@
             justify-content: center;
             gap: 40px;
 
+            @include lg {
+                gap: 10px;
+            }
+
             .topic {
                 margin-top: 5px;
                 display: flex;
@@ -29,6 +33,10 @@
                 border-top-right-radius: 10px;
                 border-top-left-radius: 10px;
 
+                @include lg {
+                    font-size: 15px;
+                    width: 70px;
+                }
             }
 
             .active {
@@ -56,11 +64,6 @@
             .top-content {
                 margin: 50px 0;
                 display: flex;
-
-                @include md {
-                    margin: 50px 0;
-                    // flex-direction: column;
-                }
 
                 .search-content {
                     position: relative;
@@ -99,6 +102,10 @@
 
                 .select-semester {
                     margin-left: 100px;
+
+                    @include lg {
+                        margin-left: 50px;
+                    }
                 }
 
                 .create-button {
@@ -118,11 +125,7 @@
                     }
 
                     @include lg {
-                        margin-left: 360px;
-                    }
-
-                    @include md {
-                        margin-left: 220px;
+                        margin-left: 50px;
                     }
                 }
 

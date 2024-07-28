@@ -10,6 +10,12 @@
   padding: 0;
 }
 
+hr {
+  padding: 0 !important;
+  margin: 3px 0 !important;
+  color: antiquewhite !important;
+}
+
 a {
   text-decoration: none !important;
 }

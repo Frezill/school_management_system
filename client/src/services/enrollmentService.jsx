@@ -84,14 +84,14 @@ const getStudentForTeacherService = async (subject_id, semester_id) => {
         let data = []
 
         response.DT.map((item, index) => {
-            let studentEmail = item.User.email
-            let studentFirst_name = item.User.first_name
-            let studentLast_name = item.User.last_name
-            let studentId = item.User.id
-            let completed = item.completed
-            let id = item.id
-            let score = item.score
-            let role = item.User.Role.name
+            let studentEmail = item.User?.email
+            let studentFirst_name = item.User?.first_name
+            let studentLast_name = item.User?.last_name
+            let studentId = item.User?.id
+            let completed = item?.completed
+            let id = item?.id
+            let score = item?.score
+            let role = item.User?.Role?.name
 
             let attendance = JSON.parse(item.attendance)
             if (attendance) {

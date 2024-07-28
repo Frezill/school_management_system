@@ -37,14 +37,7 @@ const Navbar = () => {
                     user?.role === 'Instructor' &&
                     <Link to='/teaching'>Teaching</Link>
                 }
-                {
-                    user?.role === 'Admin' &&
-                    <>
-                        <Link to='/manageAccount'>Account</Link>
-                        <Link to='/manageTuition'>Tuition</Link>
-                        <Link to='/manageOverall'>Overall</Link>
-                    </>
-                }
+
             </div>
 
             <div className="navbar_right">
@@ -60,10 +53,21 @@ const Navbar = () => {
                                         <li><Link to='/profile' >Profile</Link></li>
                                         {user.role === 'Student' &&
                                             <div>
+                                                <hr />
                                                 <li><Link to='/studentManage'>Manage</Link></li>
                                                 <li><Link to='/tuition'>Tuition</Link></li>
                                             </div>
                                         }
+                                        {
+                                            user?.role === 'Admin' &&
+                                            <>
+                                                <hr />
+                                                <Link to='/manageAccount'>Account</Link>
+                                                <Link to='/manageTuition'>Tuition</Link>
+                                                <Link to='/manageOverall'>Overall</Link>
+                                            </>
+                                        }
+                                        <hr />
                                         <li onClick={handleLogout}><Link to='/'>Logout</Link></li>
                                     </ul>
                                 </div>
