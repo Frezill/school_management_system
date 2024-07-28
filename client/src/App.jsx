@@ -17,6 +17,7 @@ import ManageAccount from './pages/ManageAccount';
 import ManageTuition from './pages/ManageTuition';
 import ManageOverall from './pages/ManageOverall';
 import ProtectedRoute from './utils/ProtectedRoute';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   return (
@@ -47,7 +48,7 @@ const App = () => {
           <Route path='/register' element={<Register />} />
         </Route>
 
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
