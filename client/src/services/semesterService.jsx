@@ -45,4 +45,17 @@ const deleteSemesterService = async (id) => {
     }
 }
 
-export { getSemesterService, createSemesterService, updateSemesterService, deleteSemesterService }
+const updateSemesterActiveService = async (id) => {
+    try {
+        let response = await axios.put('/semesterActive', { id })
+        if (response.EC === 0) {
+            toast.success(response.EM)
+        } else {
+            toast.error(response.EM)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { getSemesterService, createSemesterService, updateSemesterService, deleteSemesterService, updateSemesterActiveService }

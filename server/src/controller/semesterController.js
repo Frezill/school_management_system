@@ -43,7 +43,7 @@ const getSemester = async (req, res) => {
                 attributes: ['id', 'semester']
             });
         } else {
-            response = await Semester.findAll({ attributes: ['id', 'semester'] });
+            response = await Semester.findAll({ attributes: ['id', 'semester', 'isActive'] });
         }
         return res.status(200).json({
             EC: 0,
@@ -162,4 +162,45 @@ const deleteSemester = async (req, res) => {
     }
 }
 
-module.exports = { postCreateSemester, getSemester, getSemesterById, putUpdateSemester, deleteSemester }
+const updateSemesterActive = async (req, res) => {
+    try {
+        try {
+            let { id } = req.body
+            if (!id) {
+                return res.status(200).json({
+                    EC: 3,
+                    EM: 'Please enter id of semester to update',
+                    DT: ''
+                })
+            }
+
+            let semesterExisted = await Semester.findOne({ where: { id } })
+            if (!semesterExisted) {
+                return res.status(200).json({
+                    EC: 2,
+                    EM: 'No semester found that need updating',
+                    DT: ''
+                })
+            }
+            await Semester.update({ isActive: !semesterExisted.isActive }, { where: { id } })
+            return res.status(200).json({
+                EC: 0,
+                EM: 'Update semester state successful',
+                DT: ''
+            })
+
+
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                EC: 1,
+                EM: 'Error in server',
+                DT: ''
+            })
+        }
+    } catch (error) {
+
+    }
+}
+
+module.exports = { postCreateSemester, getSemester, getSemesterById, putUpdateSemester, deleteSemester, updateSemesterActive }

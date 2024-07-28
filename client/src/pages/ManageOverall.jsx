@@ -4,6 +4,7 @@ import ManageSubject from '../components/ManageSubject'
 import ManageSemester from '../components/ManageSemester'
 import ManageMajor from '../components/ManageMajor'
 import ManageAssign from '../components/ManageAssign'
+import ManageState from '../components/ManageState'
 
 const ManageOverall = () => {
 
@@ -25,6 +26,9 @@ const ManageOverall = () => {
                     <div className={topic == 4 ? "topic active" : "topic"} onClick={() => { setTopic(4) }}>
                         Assign
                     </div>
+                    <div className={topic == 5 ? "topic active" : "topic"} onClick={() => { setTopic(5) }}>
+                        State
+                    </div>
                 </div>
             </div>
             <div className="manage-overall-bottom">
@@ -43,6 +47,10 @@ const ManageOverall = () => {
                 {
                     topic === 4 &&
                     <ManageAssign />
+                }
+                {
+                    topic === 5 &&
+                    <ManageState />
                 }
             </div>
         </div>

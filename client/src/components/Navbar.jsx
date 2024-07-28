@@ -5,15 +5,18 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { setLogout } from "../redux/state";
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 
     const user = useSelector((state) => state.user);
+    const navigate = useNavigate()
 
 
     const dispatch = useDispatch()
     const handleLogout = () => {
         dispatch(setLogout());
+        navigate('/login')
     }
 
     return (

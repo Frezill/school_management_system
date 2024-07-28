@@ -16,7 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Semester.init({
-        semester: DataTypes.STRING
+        semester: DataTypes.STRING,
+        isActive: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        }
     }, {
         sequelize,
         modelName: 'Semester'
