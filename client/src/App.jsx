@@ -28,20 +28,21 @@ const App = () => {
         <Route path='/introduction' element={<Introduction />} />
         <Route path='/login' element={<Login />} />
 
-        <Route element={<ProtectedRoute type='Student' />}>
+        <Route element={<ProtectedRoute type='' />}>
           <Route path='/profile' element={<Profile />} />
+        </Route>
+
+        <Route element={<ProtectedRoute type='Student' />}>
           <Route path='/learning' element={<Learning />} />
           <Route path='/studentManage' element={<StudentManage />} />
           <Route path='/tuition' element={<Tuition />} />
         </Route>
 
         <Route element={<ProtectedRoute type='Teacher' />}>
-          <Route path='/profile' element={<Profile />} />
           <Route path='/teaching' element={<Teaching />} />
         </Route>
 
         <Route element={<ProtectedRoute type='Admin' />}>
-          <Route path='/profile' element={<Profile />} />
           <Route path='/manageAccount' element={<ManageAccount />}></Route>
           <Route path='/manageTuition' element={<ManageTuition />} />
           <Route path='/manageOverall' element={<ManageOverall />}></Route>
