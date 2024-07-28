@@ -47,6 +47,15 @@
                     background-color: #34495e;
                 }
             }
+
+            .danger {
+                background-color: #a5270b;
+                margin-left: 5px;
+
+                &:hover {
+                    background-color: #cf1d1d;
+                }
+            }
         }
     }
 }

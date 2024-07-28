@@ -43,7 +43,7 @@ const ManageState = () => {
 
     return (
         <div className="manage-state-container">
-            <h3>Manage Active Period</h3>
+            <h4>Manage Active Period</h4>
             <div className="manage-period">
                 {
                     periodList &&
@@ -62,7 +62,7 @@ const ManageState = () => {
                 }
             </div>
             <br />
-            <h3>Manage Active Semester</h3>
+            <h4>Manage Active Semester</h4>
             <div className="manage-semester">
                 {
                     semesterList &&
