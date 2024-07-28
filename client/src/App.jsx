@@ -16,6 +16,7 @@ import Teaching from './pages/Teaching';
 import ManageAccount from './pages/ManageAccount';
 import ManageTuition from './pages/ManageTuition';
 import ManageOverall from './pages/ManageOverall';
+import ProtectedRoute from './utils/ProtectedRoute';
 
 const App = () => {
   return (
@@ -23,17 +24,30 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />
-        <Route path='/learning' element={<Learning />} />
         <Route path='/introduction' element={<Introduction />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route path='/studentManage' element={<StudentManage />} />
-        <Route path='/tuition' element={<Tuition />} />
-        <Route path='/teaching' element={<Teaching />} />
-        <Route path='/manageAccount' element={<ManageAccount />}></Route>
-        <Route path='/manageTuition' element={<ManageTuition />} />
-        <Route path='/manageOverall' element={<ManageOverall />}></Route>
+
+        <Route element={<ProtectedRoute type='Student' />}>
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/learning' element={<Learning />} />
+          <Route path='/studentManage' element={<StudentManage />} />
+          <Route path='/tuition' element={<Tuition />} />
+        </Route>
+
+        <Route element={<ProtectedRoute type='Teacher' />}>
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/teaching' element={<Teaching />} />
+        </Route>
+
+        <Route element={<ProtectedRoute type='Admin' />}>
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/manageAccount' element={<ManageAccount />}></Route>
+          <Route path='/manageTuition' element={<ManageTuition />} />
+          <Route path='/manageOverall' element={<ManageOverall />}></Route>
+          <Route path='/register' element={<Register />} />
+        </Route>
+
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
       </Routes>
 
       <Footer />
