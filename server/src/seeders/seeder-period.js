@@ -6,11 +6,15 @@ module.exports = {
     await queryInterface.bulkInsert('Period', [
       {
         name: 'subject_registration',
-        isActive: true
+        isActive: true,
+        createdAt: '2024-07-28 00:00:00',
+        updatedAt: '2024-07-28 00:0:00',
       },
       {
         name: 'pay_tuition',
-        isActive: true
+        isActive: true,
+        createdAt: '2024-07-28 00:00:00',
+        updatedAt: '2024-07-28 00:0:00',
       },
     ], {});
   },

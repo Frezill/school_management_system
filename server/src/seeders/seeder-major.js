@@ -6,7 +6,9 @@ module.exports = {
         await queryInterface.bulkInsert('Major', [
             {
                 name: 'Information Security',
-                year: '2023'
+                year: '2023',
+                createdAt: '2024-07-28 00:00:00',
+                updatedAt: '2024-07-28 00:0:00',
             }
         ], {});
     },

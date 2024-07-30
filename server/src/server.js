@@ -2,15 +2,15 @@ const express = require('express')
 require('dotenv').config()
 const cookieParser = require('cookie-parser')
 
-const initSubjectRoute = require('./src/routes/subjectRoute');
-const initMajorRoute = require('./src/routes/majorRoute');
-const initSemesterRoute = require('./src/routes/semesterRoute');
-const initRoleRoute = require('./src/routes/roleRoute');
-const initUserRoutes = require('./src/routes/userRoute');
-const initEnrollmentRoute = require('./src/routes/enrollmentRoute');
-const initTuitionRoute = require('./src/routes/tuitionRoute');
-const initPeriodRoute = require('./src/routes/periodRoute');
-const configCors = require('./src/config/cors');
+const initSubjectRoute = require('./routes/subjectRoute');
+const initMajorRoute = require('./routes/majorRoute');
+const initSemesterRoute = require('./routes/semesterRoute');
+const initRoleRoute = require('./routes/roleRoute');
+const initUserRoutes = require('./routes/userRoute');
+const initEnrollmentRoute = require('./routes/enrollmentRoute');
+const initTuitionRoute = require('./routes/tuitionRoute');
+const initPeriodRoute = require('./routes/periodRoute');
+const configCors = require('./config/cors');
 
 //config
 const PORT = process.env.PORT || 1507
