@@ -1,22 +1,21 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 let customizeConfig = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   dialect: 'mysql',
-  logging: false,
-  query: {
-    "raw": true
+  define: {
+    freezeTableName: true
   }
 };
 
@@ -25,7 +24,38 @@ let sequelize = new Sequelize(
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   customizeConfig
-)
+);
+
+// let customizeConfig = {
+//   host: 'localhost',
+//   port: 3307,
+//   dialect: 'mysql'
+// };
+
+// let sequelize = new Sequelize(
+//   "school_management",
+//   "root",
+//   "123456",
+//   customizeConfig
+// );
+
+(async () => {
+  try {
+    console.log('Current directory:', __dirname);
+    console.log('Environment variables:');
+    console.log('DB_HOST:', process.env.DB_HOST);
+    console.log('DB_PORT:', process.env.DB_PORT);
+    console.log('DB_DATABASE:', process.env.DB_DATABASE);
+    console.log('DB_USERNAME:', process.env.DB_USERNAME);
+    console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+    await sequelize.authenticate()
+    console.log("We have successfully connected to the database!");
+  }
+  catch (e) {
+    console.log("Connection to the database failed!: " + e.message);
+    throw e;
+  }
+})();
 
 
 fs

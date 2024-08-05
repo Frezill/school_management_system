@@ -1,16 +1,27 @@
-require('dotenv').config()
+require('dotenv/config')
 
-const env = process.env.NODE_ENV || 'development';
+console.log('Environment variables:');
+console.log('DB_HOST:', process.env.DB_HOST);
+console.log('DB_PORT:', process.env.DB_PORT);
+console.log('DB_DATABASE:', process.env.DB_DATABASE);
+console.log('DB_USERNAME:', process.env.DB_USERNAME);
+console.log('DB_PASSWORD:', process.env.DB_PASSWORD);
+
+// module.exports = {
+//   development: {
+//     database: process.env.DB_DATABASE,
+//     username: process.env.DB_USERNAME,
+//     password: process.env.DB_PASSWORD,
+//     host: '172.18.0.3',
+//     dialect: 'mysql',
+//     port: process.env.DB_PORT || 3307,
+//     define: {
+//       freezeTableName: true
+//     },
+//   }
+// };
 
 module.exports = {
-  // development: {
-  //   database: process.env.DB_DATABASE,
-  //   username: process.env.DB_USERNAME,
-  //   password: process.env.DB_PASSWORD,
-  //   host: process.env.DB_HOST,
-  //   dialect: 'mysql',
-  //   port: process.env.DB_PORT
-  // }
   development: {
     database: 'school_management',
     username: 'root',

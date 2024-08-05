@@ -9,22 +9,20 @@ services:
       - MYSQL_DATABASE=school_management
     ports:
       - 3307:3306
-    expose:
-      - 3306
+    networks:
+      - backend
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
     restart: unless-stopped
-    environment:
-      - DB_HOST=mysqldb
-      - DB_PORT=3306
-      - DB_DATABASE=school_management
-      - DB_USERNAME=root
-      - DB_PASSWORD=123456
+    env_file:
+      - .env
     ports:
       - 1507:1507
+    networks:
+      - backend
 
   nginx:
     image: nginx:1.27.0-alpine
@@ -36,10 +34,8 @@ services:
     volumes:
       - ./client/dist:/usr/share/nginx/html
       - ./default.conf:/etc/nginx/conf.d/default.conf
-
-volumes:
-  db:
-
+    networks:
+      - frontend
 
 networks:
   backend:
