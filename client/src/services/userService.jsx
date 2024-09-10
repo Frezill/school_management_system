@@ -43,7 +43,8 @@ const loginUserService = async (email, password) => {
             toast.error(response.EM)
         }
     } catch (error) {
-        log(error)
+        console.log(error);
+
     }
 }
 
