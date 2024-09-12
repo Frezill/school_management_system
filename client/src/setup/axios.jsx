@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { store } from '../redux/store'
+import { setLogout } from '../redux/state';
 
 
 // Set config defaults when creating the instance
@@ -35,6 +37,7 @@ instance.interceptors.response.use(function (response) {
         case 401: {
             toast.error('Login to continue')
             // window.location.href = '/login'
+            // store.dispatch(setLogout())
             return error.response.data;
         }
         //forbidden (pemission related issues)

@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysqldb:
@@ -10,33 +10,41 @@ services:
     ports:
       - 3307:3306
     networks:
-      - backend
+      - app-network
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
     restart: unless-stopped
-    env_file:
-      - .env
+    environment:
+      - PORT=1507
+      - JWT_SECRET_KEY=24educationjwtkey
+      - JWT_EXPRIRES_IN=1d
+      - REACT_URL=http://localhost:5173
+      - DB_PORT=3306
+      - DB_HOST=mysqldb
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+      - DB_DATABASE=school_management
     ports:
       - 1507:1507
     networks:
-      - backend
+      - app-network
 
-  nginx:
-    image: nginx:1.27.0-alpine
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
-      - 5173:80
-    volumes:
-      - ./client/dist:/usr/share/nginx/html
-      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - 5173:5173
+    environment:
+      - VITE_serverURL=http://server:1507
+    command: [ "npm", "run", "start", "--", "--host", "0.0.0.0" ]
     networks:
-      - frontend
+      - app-network
 
 networks:
-  backend:
-  frontend:
+  app-network:
+    driver: bridge
